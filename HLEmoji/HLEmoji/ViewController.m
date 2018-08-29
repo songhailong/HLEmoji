@@ -7,23 +7,42 @@
 //
 
 #import "ViewController.h"
-
-@interface ViewController ()
-
+#import "ExpressionKeyboard.h"
+@interface ViewController ()<ExpressionKeyboardDelegate>
+@property(nonatomic,strong)ExpressionKeyboard *inputView;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self.view addSubview:self.inputView];
+    self.inputView.delegate=self;
+}
+-(ExpressionKeyboard *)inputView{
+    if (!_inputView) {
+        CGRect fream=self.view.frame;
+        CGFloat height=fream.size.height;
+        CGFloat With=fream.size.width;
+        _inputView=[[ExpressionKeyboard alloc] initWithFrame:CGRectMake(0, height-50, With, 50)];
+        
+    }
+    return _inputView;
+}
+-(void)sendMessage:(NSString *)msg{
+    
+}
+-(void)recordFinish:(NSURL *)url WithTime:(float)time{
+    
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)selectImage{
+    
 }
 
+//显示表情时应该处理高
+- (void)handleHeight:(CGFloat)height{
+    
+}
 
 @end
