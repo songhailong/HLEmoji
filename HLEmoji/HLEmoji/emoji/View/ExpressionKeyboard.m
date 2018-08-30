@@ -7,8 +7,11 @@
 //
 
 #import "ExpressionKeyboard.h"
+#import "ExpressionInputView.h"
+#import "ExpressionAddView.h"
 #define SCREEN_HEIGHT    [UIScreen mainScreen].bounds.size.height //屏高
 static  NSString * const ChatKeyboardResign=@"ChatKeyboardResign";
+static float const FaceKeyboardHeight=224.0;
 @interface ExpressionKeyboard()<UITextViewDelegate>{
     UITextView *inputText;
     BOOL showFace;
@@ -18,6 +21,10 @@ static  NSString * const ChatKeyboardResign=@"ChatKeyboardResign";
 }
 @property(nonatomic,strong)UIButton *faceimage;
 @property(nonatomic,strong)UIButton *addImg;
+//表情键盘
+@property(nonatomic,strong)ExpressionInputView *faceKeyboard;
+//加号键盘
+@property(nonatomic,strong)ExpressionAddView *AddKeyboard;
 @end
 @implementation ExpressionKeyboard
 
@@ -30,7 +37,7 @@ static  NSString * const ChatKeyboardResign=@"ChatKeyboardResign";
         line.frame=CGRectMake(0, 0, frame.size.width, 1);
         [self addSubview:line];
         
-        CGFloat height=frame.size.height;
+        CGFloat height=50;
         CGFloat width=frame.size.width;
          self.recordImage=[UIButton new];
         //左边语音按钮
@@ -66,31 +73,38 @@ static  NSString * const ChatKeyboardResign=@"ChatKeyboardResign";
         [_faceimage setBackgroundImage:[UIImage imageNamed:@"表情"] forState:UIControlStateNormal];
          [_faceimage setBackgroundImage:[UIImage imageNamed:@"键盘"] forState:UIControlStateSelected];
         _faceimage.userInteractionEnabled=YES;
-        UITapGestureRecognizer *faceTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showFaceAction)];
-        [_faceimage addGestureRecognizer:faceTap];
+//        UITapGestureRecognizer *faceTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showFaceAction)];
+//        [_faceimage addGestureRecognizer:faceTap];
+        [_faceimage addTarget:self action:@selector(showFaceAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_faceimage];
         //加号按钮
         _addImg = [UIButton new];
         [_addImg setBackgroundImage:[UIImage imageNamed:@"加号"] forState:UIControlStateNormal];
         _addImg.frame = CGRectMake(_faceimage.frame.size.height+_faceimage.frame.origin.x+5, (height-30)/2, 30, 30);
         _addImg.userInteractionEnabled = TRUE;
-        UITapGestureRecognizer *addImgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectImgAction)];
-        [_addImg addGestureRecognizer:addImgTap];
+//        UITapGestureRecognizer *addImgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectImgAction)];
+//        [_addImg addGestureRecognizer:addImgTap];
+        [_addImg addTarget:self action:@selector(selectImgAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_addImg];
         //键盘弹出通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(systemKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         //自定义键盘系统键盘降落
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardResignFirstResponder:) name:ChatKeyboardResign object:nil];
+        [self initUI];
     }
     return self;
 }
+-(void)initUI{
+    [self  addSubview:self.AddKeyboard];
+    [self addSubview:self.faceKeyboard];
+}
 #pragma mark - 键盘降落
 - (void)keyboardResignFirstResponder:(NSNotification *)note
-{
-//    [self.msgTextView resignFirstResponder];
+{     //键盘隐藏
+    [inputText resignFirstResponder];
 //    //按钮初始化刷新
-//    [self reloadSwitchButtons];
-//    [self customKeyboardMove:SCREEN_HEIGHT - Height(self.messageBar.frame)];
+  [self p_reloadSwitchButtons];
+    [self customKeyboardMove:SCREEN_HEIGHT - self.frame.size.height];
 }
 - (void)systemKeyboardWillShow:(NSNotification *)note{
     //设置素有按钮的selects属性
@@ -100,7 +114,7 @@ static  NSString * const ChatKeyboardResign=@"ChatKeyboardResign";
     //记录系统键盘高度
     keyboardHeight = systemKbHeight;
     
-    [self customKeyboardMove:SCREEN_HEIGHT-systemKbHeight-self.frame.size.height];
+    [self customKeyboardMove:SCREEN_HEIGHT-systemKbHeight-50];
     
 }
 -(void)p_reloadSwitchButtons{
@@ -120,11 +134,51 @@ static  NSString * const ChatKeyboardResign=@"ChatKeyboardResign";
     return YES;
 }
 //加号按钮
--(void)selectImgAction{
-    
+-(void)selectImgAction:(UIButton *)btn{
+    btn.selected=!btn.selected;
+    //重置其他按钮select
+    self.recordImage.selected=NO;
+    self.faceimage.selected=NO;
+    self.faceKeyboard.hidden=YES;
+      keyboardHeight=224;
+    if (btn.selected) {
+        inputText.hidden=NO;
+        self.btnRecord.hidden=YES;
+        [inputText resignFirstResponder];
+        self.AddKeyboard.hidden=NO;
+        [UIView animateWithDuration:5 animations:^{
+            //self.AddKeyboard.frame=CGRectMake(0, 50,self.frame.size.width, keyboardHeight);
+            self.AddKeyboard.transform=CGAffineTransformMakeTranslation(0, 50);
+        }];
+         [self customKeyboardMove:SCREEN_HEIGHT-self.frame.size.height];
+    }else{
+        self.AddKeyboard.hidden=YES;
+        [inputText becomeFirstResponder];
+    }
 }
 //显示表情键盘
--(void)showFaceAction{
+-(void)showFaceAction:(UIButton *)btn{
+    btn.selected=!btn.selected;
+    //重置其他按钮select
+    self.recordImage.selected=NO;
+    self.addImg.selected=NO;
+    self.AddKeyboard.hidden=YES;
+    keyboardHeight=224;
+    if (btn.selected) {
+        inputText.hidden=NO;
+        self.btnRecord.hidden=YES;
+        [inputText resignFirstResponder];
+        self.faceKeyboard.hidden=NO;
+        [self bringSubviewToFront:self.faceKeyboard];
+        [UIView animateWithDuration:0.5 animations:^{
+            //self.faceKeyboard.frame=CGRectMake(0, 50,self.frame.size.width, keyboardHeight);
+            self.faceKeyboard.transform=CGAffineTransformMakeTranslation(0, 50);
+        }];
+        [self customKeyboardMove:SCREEN_HEIGHT-self.frame.size.height];
+    }else{
+        self.faceKeyboard.hidden=YES;
+        [inputText becomeFirstResponder];
+    }
     
 }
 -(void)recordKeyboardChange{
@@ -140,5 +194,25 @@ static  NSString * const ChatKeyboardResign=@"ChatKeyboardResign";
 }
 -(void)hide{
     //[self setBackgroundColor:];
+}
+#pragma mark*******懒加载
+-(ExpressionInputView *)faceKeyboard{
+    if (!_faceKeyboard) {
+        _faceKeyboard=[[ExpressionInputView alloc] init];
+        _faceKeyboard.hidden=YES;
+    }
+    return _faceKeyboard;
+}
+-(ExpressionAddView *)AddKeyboard{
+    if (!_AddKeyboard) {
+        _AddKeyboard=[[ExpressionAddView alloc] init];
+        _AddKeyboard.hidden=YES;
+    }
+    return _AddKeyboard;
+}
+-(void)layoutSubviews{
+    [super layoutSubviews];
+       self.faceKeyboard.frame=CGRectMake(0,50, self.frame.size.width, FaceKeyboardHeight);
+    self.AddKeyboard.frame=CGRectMake(0, 50, self.frame.size.width, FaceKeyboardHeight);
 }
 @end

@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef NS_ENUM(NSInteger,handleKeyType) {
+    handleKeyTypePhoto,
+    handleKeyTypeCamera,
+    handleKeyTypeIphne,
+    handleKeyTypAderess,
+    handleKeyTypeFile,
+};
+typedef void(^handleComple)(handleKeyType type);
 @interface ExpressionAddView : UIView
-
+//消息回调
+@property(nonatomic,copy)handleComple handleBlock;
+-(void)handledidSelectAction:(handleComple)handleBlock;
 @end

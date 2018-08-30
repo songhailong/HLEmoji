@@ -29,6 +29,7 @@ static NSString * const  CELLHeader=@"Header";
     self = [super initWithFrame:frame];
     if(self){
         self.backgroundColor = [UIColor colorWithRed:249/255.0 green:249/255.0 blue:249/255.0 alpha:1];
+        self.backgroundColor=[UIColor redColor];
         [self initUI];
         
     }

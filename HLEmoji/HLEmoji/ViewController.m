@@ -24,7 +24,7 @@
         CGRect fream=self.view.frame;
         CGFloat height=fream.size.height;
         CGFloat With=fream.size.width;
-        _inputView=[[ExpressionKeyboard alloc] initWithFrame:CGRectMake(0, height-50, With, 50)];
+        _inputView=[[ExpressionKeyboard alloc] initWithFrame:CGRectMake(0, height-50, With, 273)];
         
     }
     return _inputView;

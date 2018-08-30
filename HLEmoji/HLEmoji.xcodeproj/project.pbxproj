@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		829FBC022137D348002EC725 /* chatBar_colorMore_audioCallSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFB2137D347002EC725 /* chatBar_colorMore_audioCallSelected@2x.png */; };
+		829FBC032137D348002EC725 /* 通话@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFC2137D347002EC725 /* 通话@2x.png */; };
+		829FBC042137D348002EC725 /* 视频@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFD2137D347002EC725 /* 视频@2x.png */; };
+		829FBC052137D348002EC725 /* 录像@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFE2137D347002EC725 /* 录像@2x.png */; };
+		829FBC062137D348002EC725 /* 拍摄@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFF2137D348002EC725 /* 拍摄@2x.png */; };
+		829FBC072137D348002EC725 /* 照片@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBC002137D348002EC725 /* 照片@2x.png */; };
+		829FBC082137D348002EC725 /* 位置@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBC012137D348002EC725 /* 位置@2x.png */; };
+		829FBC0B2137DA1C002EC725 /* AddViewHandleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 829FBC0A2137DA1C002EC725 /* AddViewHandleCell.m */; };
 		82AC607421364C4800314F6E /* arrow_orange@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82AC5E6A21364C4600314F6E /* arrow_orange@2x.png */; };
 		82AC607521364C4800314F6E /* arrow_orange@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82AC5E6B21364C4600314F6E /* arrow_orange@3x.png */; };
 		82AC607621364C4800314F6E /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = 82AC5E6C21364C4600314F6E /* Contents.json */; };
@@ -430,6 +438,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		829FBBFB2137D347002EC725 /* chatBar_colorMore_audioCallSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_colorMore_audioCallSelected@2x.png"; sourceTree = "<group>"; };
+		829FBBFC2137D347002EC725 /* 通话@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "通话@2x.png"; sourceTree = "<group>"; };
+		829FBBFD2137D347002EC725 /* 视频@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "视频@2x.png"; sourceTree = "<group>"; };
+		829FBBFE2137D347002EC725 /* 录像@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "录像@2x.png"; sourceTree = "<group>"; };
+		829FBBFF2137D348002EC725 /* 拍摄@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "拍摄@2x.png"; sourceTree = "<group>"; };
+		829FBC002137D348002EC725 /* 照片@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "照片@2x.png"; sourceTree = "<group>"; };
+		829FBC012137D348002EC725 /* 位置@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "位置@2x.png"; sourceTree = "<group>"; };
+		829FBC092137DA1C002EC725 /* AddViewHandleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddViewHandleCell.h; sourceTree = "<group>"; };
+		829FBC0A2137DA1C002EC725 /* AddViewHandleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddViewHandleCell.m; sourceTree = "<group>"; };
 		82AC5E6A21364C4600314F6E /* arrow_orange@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_orange@2x.png"; sourceTree = "<group>"; };
 		82AC5E6B21364C4600314F6E /* arrow_orange@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_orange@3x.png"; sourceTree = "<group>"; };
 		82AC5E6C21364C4600314F6E /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
@@ -2409,6 +2426,13 @@
 		82DDEB102134EAEC004342E4 /* emoji */ = {
 			isa = PBXGroup;
 			children = (
+				829FBBFC2137D347002EC725 /* 通话@2x.png */,
+				829FBBFB2137D347002EC725 /* chatBar_colorMore_audioCallSelected@2x.png */,
+				829FBBFF2137D348002EC725 /* 拍摄@2x.png */,
+				829FBC012137D348002EC725 /* 位置@2x.png */,
+				829FBC002137D348002EC725 /* 照片@2x.png */,
+				829FBBFD2137D347002EC725 /* 视频@2x.png */,
+				829FBBFE2137D347002EC725 /* 录像@2x.png */,
 				82DDEB2721352FBF004342E4 /* Emoticons.bundle */,
 				82DDEB1721350D2F004342E4 /* View */,
 				82DDEB1321350CC5004342E4 /* categary */,
@@ -2438,6 +2462,8 @@
 				82DDEB25213519C9004342E4 /* ExpressionCell.m */,
 				82DDEB2921353FF0004342E4 /* Emoticon.h */,
 				82DDEB2A21353FF0004342E4 /* Emoticon.m */,
+				829FBC092137DA1C002EC725 /* AddViewHandleCell.h */,
+				829FBC0A2137DA1C002EC725 /* AddViewHandleCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2601,6 +2627,7 @@
 				82AC61C221364C4900314F6E /* Contents.json in Resources */,
 				82AC60C621364C4800314F6E /* Contents.json in Resources */,
 				82AC611421364C4800314F6E /* Contents.json in Resources */,
+				829FBC032137D348002EC725 /* 通话@2x.png in Resources */,
 				82AC60D321364C4800314F6E /* [尴尬]@2x.png in Resources */,
 				82AC615F21364C4900314F6E /* Contents.json in Resources */,
 				82AC614321364C4800314F6E /* [篮球]@3x.png in Resources */,
@@ -2647,6 +2674,7 @@
 				82AC60B421364C4800314F6E /* Contents.json in Resources */,
 				82AC61DD21364C4900314F6E /* Contents.json in Resources */,
 				82AC609321364C4800314F6E /* Contents.json in Resources */,
+				829FBC062137D348002EC725 /* 拍摄@2x.png in Resources */,
 				82AC617E21364C4900314F6E /* grey_bell@3x.png in Resources */,
 				82AC619021364C4900314F6E /* 发送失败@3x.png in Resources */,
 				82AC61F421364C4900314F6E /* 键盘@3x.png in Resources */,
@@ -2716,6 +2744,7 @@
 				82AC61D721364C4900314F6E /* Contents.json in Resources */,
 				82AC609421364C4800314F6E /* [发怒]@2x.png in Resources */,
 				82AC61AA21364C4900314F6E /* 对方语音气泡02@3x.png in Resources */,
+				829FBC082137D348002EC725 /* 位置@2x.png in Resources */,
 				82AC616121364C4900314F6E /* [轻松]@3x.png in Resources */,
 				82AC619821364C4900314F6E /* 右－超长遮罩@2x.png in Resources */,
 				82AC61B821364C4900314F6E /* 我方文件气泡@3x.png in Resources */,
@@ -2732,6 +2761,7 @@
 				82AC612621364C4800314F6E /* Contents.json in Resources */,
 				82AC608921364C4800314F6E /* [勾手指]@3x.png in Resources */,
 				82AC618221364C4900314F6E /* Contents.json in Resources */,
+				829FBC042137D348002EC725 /* 视频@2x.png in Resources */,
 				82AC61E421364C4900314F6E /* 聊天为空@2x.png in Resources */,
 				82AC60BC21364C4800314F6E /* [大哭]@3x.png in Resources */,
 				82AC612A21364C4800314F6E /* [猪头]@2x.png in Resources */,
@@ -2766,6 +2796,7 @@
 				82AC60FF21364C4800314F6E /* Contents.json in Resources */,
 				82AC60B221364C4800314F6E /* [困了]@2x.png in Resources */,
 				82AC61B921364C4900314F6E /* Contents.json in Resources */,
+				829FBC072137D348002EC725 /* 照片@2x.png in Resources */,
 				82AC60DA21364C4800314F6E /* [帅]@3x.png in Resources */,
 				82AC613521364C4800314F6E /* Contents.json in Resources */,
 				82AC615421364C4800314F6E /* [蛋糕]@2x.png in Resources */,
@@ -2856,6 +2887,7 @@
 				82AC61E821364C4900314F6E /* 表情@3x.png in Resources */,
 				82AC60B021364C4800314F6E /* [困]@3x.png in Resources */,
 				82AC60A121364C4800314F6E /* [吻]@3x.png in Resources */,
+				829FBC022137D348002EC725 /* chatBar_colorMore_audioCallSelected@2x.png in Resources */,
 				82AC61C121364C4900314F6E /* 我方语音icon03.png in Resources */,
 				82AC619421364C4900314F6E /* 右－竖图片遮罩@2x.png in Resources */,
 				82AC61CC21364C4900314F6E /* 拍摄@2x.png in Resources */,
@@ -2906,6 +2938,7 @@
 				82AC60C021364C4800314F6E /* Contents.json in Resources */,
 				82AC613821364C4800314F6E /* Contents.json in Resources */,
 				82AC608C21364C4800314F6E /* [卖萌]@3x.png in Resources */,
+				829FBC052137D348002EC725 /* 录像@2x.png in Resources */,
 				82AC60D721364C4800314F6E /* [左哼哼]@3x.png in Resources */,
 				82AC60F321364C4800314F6E /* Contents.json in Resources */,
 				82AC609821364C4800314F6E /* [可爱]@3x.png in Resources */,
@@ -2963,6 +2996,7 @@
 			files = (
 				82DDEB1D213518BD004342E4 /* ExpressionKeyboard.m in Sources */,
 				82DDEAE32134E9C6004342E4 /* ViewController.m in Sources */,
+				829FBC0B2137DA1C002EC725 /* AddViewHandleCell.m in Sources */,
 				82DDEB232135192C004342E4 /* ExpressionAddView.m in Sources */,
 				82DDEB26213519C9004342E4 /* ExpressionCell.m in Sources */,
 				82DDEAEE2134E9CB004342E4 /* main.m in Sources */,
