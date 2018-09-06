@@ -20,6 +20,8 @@
         [self.contentView addSubview:_textLable];
         _imageBn.backgroundColor=[UIColor clearColor];
         _textLable.backgroundColor=[UIColor clearColor];
+        _textLable.textAlignment=NSTextAlignmentCenter;
+        _textLable.font=[UIFont systemFontOfSize:17];
         _textLable.textColor=[UIColor grayColor];
     }
     return self;

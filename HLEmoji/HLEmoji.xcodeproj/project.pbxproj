@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8276CBC62141211800B38702 /* NSMutableArray+Emoticon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8276CBC52141211800B38702 /* NSMutableArray+Emoticon.m */; };
 		829FBC022137D348002EC725 /* chatBar_colorMore_audioCallSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFB2137D347002EC725 /* chatBar_colorMore_audioCallSelected@2x.png */; };
 		829FBC032137D348002EC725 /* 通话@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFC2137D347002EC725 /* 通话@2x.png */; };
 		829FBC042137D348002EC725 /* 视频@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFD2137D347002EC725 /* 视频@2x.png */; };
@@ -438,6 +439,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8276CBC42141211800B38702 /* NSMutableArray+Emoticon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Emoticon.h"; sourceTree = "<group>"; };
+		8276CBC52141211800B38702 /* NSMutableArray+Emoticon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Emoticon.m"; sourceTree = "<group>"; };
 		829FBBFB2137D347002EC725 /* chatBar_colorMore_audioCallSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_colorMore_audioCallSelected@2x.png"; sourceTree = "<group>"; };
 		829FBBFC2137D347002EC725 /* 通话@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "通话@2x.png"; sourceTree = "<group>"; };
 		829FBBFD2137D347002EC725 /* 视频@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "视频@2x.png"; sourceTree = "<group>"; };
@@ -2445,6 +2448,8 @@
 			children = (
 				82DDEB1421350D0B004342E4 /* UIImage+Category.h */,
 				82DDEB1521350D0B004342E4 /* UIImage+Category.m */,
+				8276CBC42141211800B38702 /* NSMutableArray+Emoticon.h */,
+				8276CBC52141211800B38702 /* NSMutableArray+Emoticon.m */,
 			);
 			path = categary;
 			sourceTree = "<group>";
@@ -2995,6 +3000,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				82DDEB1D213518BD004342E4 /* ExpressionKeyboard.m in Sources */,
+				8276CBC62141211800B38702 /* NSMutableArray+Emoticon.m in Sources */,
 				82DDEAE32134E9C6004342E4 /* ViewController.m in Sources */,
 				829FBC0B2137DA1C002EC725 /* AddViewHandleCell.m in Sources */,
 				82DDEB232135192C004342E4 /* ExpressionAddView.m in Sources */,
@@ -3173,7 +3179,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6CUR897C43;
+				DEVELOPMENT_TEAM = 669UDNZ7MP;
 				INFOPLIST_FILE = HLEmoji/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3190,7 +3196,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6CUR897C43;
+				DEVELOPMENT_TEAM = 669UDNZ7MP;
 				INFOPLIST_FILE = HLEmoji/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

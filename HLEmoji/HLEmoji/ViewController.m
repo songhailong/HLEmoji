@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self.view addSubview:self.inputView];
     self.inputView.delegate=self;
 }

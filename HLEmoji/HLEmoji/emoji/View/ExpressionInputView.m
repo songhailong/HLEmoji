@@ -11,8 +11,9 @@
 static NSString * const  CELLIDEN=@"cell";
 static NSString * const  CELLHeader=@"Header";
 @interface  ExpressionInputView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@property (nonatomic, strong) UIView *vTopBg;
 @property(nonatomic,strong)UICollectionView *collView;
-@property (nonatomic, strong) NSArray *emojiDictionary;
+@property (nonatomic, strong) NSMutableArray *emojiDictionary;
 @property (nonatomic, strong) UIView *vDownBg;
 @property (nonatomic, strong) UIButton *btnSend;
 @property (nonatomic, strong) UIButton *btnDefault;
@@ -36,6 +37,8 @@ static NSString * const  CELLHeader=@"Header";
     return self;
 }
 -(void)initUI{
+    _vTopBg = [[UIView alloc]init];
+    [self addSubview:_vTopBg];
     [self addSubview:self.collView];
     _vDownBg = [[UIView alloc]init];
     _vDownBg.backgroundColor = [UIColor whiteColor];
@@ -71,9 +74,21 @@ static NSString * const  CELLHeader=@"Header";
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
    ExpressionCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:CELLIDEN forIndexPath:indexPath];
+    
     NSString *imagePath=[self.emojiDictionary objectAtIndex:indexPath.row];
     //[cell loadData:imagePath];
     return cell;
+}
+
+#pragma mark*******按钮
+-(void)sendAction{
+    
+}
+-(void)flowerAction{
+    
+}
+-(void)emojiAction{
+    
 }
 #pragma mark********懒加载
 -(UICollectionView*)collView{
@@ -120,7 +135,8 @@ static NSString * const  CELLHeader=@"Header";
         [_btnEmoji setTitle:@"Emoji" forState:UIControlStateNormal];
         _btnEmoji.titleLabel.font = [UIFont systemFontOfSize:14];
         [_btnEmoji setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        //_btnEmoji.backgroundColor = RGB3(179);
+        _btnEmoji.backgroundColor =[UIColor colorWithRed:179/255.0 green:179/255.0 blue:179/255.0 alpha:1];
+        [_btnEmoji addTarget:self action:@selector(emojiAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnEmoji;
 }
@@ -131,12 +147,99 @@ static NSString * const  CELLHeader=@"Header";
         _btnflower.titleLabel.font = [UIFont systemFontOfSize:14];
         [_btnflower setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _btnflower.backgroundColor = [UIColor colorWithRed:179/255.0 green:179/255.0 blue:179/255.0 alpha:1];
+        [_btnflower addTarget:self action:@selector(flowerAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnflower;
 }
+-(NSMutableArray *)emojiDictionary{
+    if (!_emojiDictionary) {
+        _emojiDictionary=[[NSMutableArray alloc] init];
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+           NSString *emoticonBundlePath = [[NSBundle mainBundle] pathForResource:@"Emoticons" ofType:@"bundle"];
+        NSString *emoticonPlistPath = [emoticonBundlePath stringByAppendingPathComponent:@"emoticons.plist"];
+    NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:emoticonPlistPath];
+            NSArray *package=plist[@"packages"];
+            
+        });
+    }
+    return _emojiDictionary;
+}
+
 //布局
 -(void)layoutSubviews{
     [super layoutSubviews];
+    CGFloat withH=self.frame.size.width;
+    CGRect rect=self.vTopBg.frame;
+    rect.origin.x=0;
+    rect.origin.y=0;
+    rect.size.width=self.frame.size.width;
+    rect.size.height=self.frame.size.height-40;
+    self.vTopBg.frame=rect;
+    
+    rect=self.collView.frame;
+    rect.origin.x=0;
+    rect.origin.y=0;
+    rect.size.width=self.vTopBg.frame.size.width;
+    rect.size.height=self.vTopBg.frame.size.height;
+    self.collView.frame=rect;
+    
+    rect=self.vDownBg.frame;
+    rect.origin.x=0;
+    rect.origin.y=self.frame.size.height-40;
+    rect.size.width=self.vTopBg.frame.size.width;
+    rect.size.height=40;
+    self.vDownBg.frame=rect;
+    
+    rect=self.btnSend.frame;
+    rect.origin.x=self.frame.size.width-50*RATIO_WIDHT320;
+    rect.origin.y=0;
+    rect.size.width=50*RATIO_WIDHT320;
+    rect.size.height=self.vDownBg.frame.size.height;
+    self.btnSend.frame=rect;
+    //线条
+    CGFloat w = (self.frame.size.width - self.btnSend.frame.size.width - 2)/3.0;
+    rect = self.vHorLine.frame;
+    rect.origin.x = 0;
+    rect.origin.y = 0;
+    rect.size.width = withH - self.btnSend.frame.size.width;
+    rect.size.height = w;
+    self.vHorLine.frame = rect;
+    
+   CGRect  r = self.btnDefault.frame;
+    r.origin.x = 0;
+    r.origin.y = 0;
+    r.size.width = w;
+    r.size.height = self.vDownBg.frame.size.height;
+    self.btnDefault.frame = r;
+    
+    r = self.vLineOne.frame;
+    r.origin.x = self.btnDefault.frame.size.width;
+    r.origin.y = 0;
+    r.size.width = 1;
+    r.size.height = self.vDownBg.frame.size.height;
+    self.vLineOne.frame = r;
+    
+    r = self.btnEmoji.frame;
+    r.origin.x = self.vLineOne.frame.origin.x+self.vLineOne.frame.size.width;
+    r.origin.y = 0;
+    r.size.width = w;
+    r.size.height = self.vDownBg.frame.size.height;
+    self.btnEmoji.frame = r;
+    
+    r = self.vLineOne.frame;
+    r.origin.x = self.btnDefault.frame.origin.x+self.btnDefault.frame.size.width;
+    r.origin.y = 0;
+    r.size.width = 1;
+    r.size.height = self.vDownBg.frame.size.height;
+    self.vLineOne.frame = r;
+    
+    r = self.btnflower.frame;
+    r.origin.x = self.btnEmoji.frame.origin.x+self.btnEmoji.frame.size.width;
+    r.origin.y = 0;
+    r.size.width = w;
+    r.size.height = self.vDownBg.frame.size.height;
+    self.btnflower.frame = r;
 }
 
 

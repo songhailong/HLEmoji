@@ -44,7 +44,7 @@ static float const FaceKeyboardHeight=224.0;
         [self.recordImage setImage:[UIImage imageNamed:@"语音"] forState:UIControlStateNormal];
         [self.recordImage setImage:[UIImage imageNamed:@"键盘" ] forState:UIControlStateSelected];
         self.recordImage.frame=CGRectMake(5, (height-30)/2.0, 30, 30);
-        [self.recordImage addTarget:self action:@selector(recordKeyboardChange) forControlEvents:UIControlEventTouchUpInside];
+        [self.recordImage addTarget:self action:@selector(recordKeyboardChange:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.recordImage];
         //输入框
         inputText=[[UITextView alloc] init];
@@ -147,8 +147,8 @@ static float const FaceKeyboardHeight=224.0;
         [inputText resignFirstResponder];
         self.AddKeyboard.hidden=NO;
         [UIView animateWithDuration:5 animations:^{
-            //self.AddKeyboard.frame=CGRectMake(0, 50,self.frame.size.width, keyboardHeight);
-            self.AddKeyboard.transform=CGAffineTransformMakeTranslation(0, 50);
+            self.AddKeyboard.frame=CGRectMake(0, 50,self.frame.size.width, keyboardHeight);
+            //self.AddKeyboard.transform=CGAffineTransformMakeTranslation(0, 50);
         }];
          [self customKeyboardMove:SCREEN_HEIGHT-self.frame.size.height];
     }else{
@@ -171,8 +171,8 @@ static float const FaceKeyboardHeight=224.0;
         self.faceKeyboard.hidden=NO;
         [self bringSubviewToFront:self.faceKeyboard];
         [UIView animateWithDuration:0.5 animations:^{
-            //self.faceKeyboard.frame=CGRectMake(0, 50,self.frame.size.width, keyboardHeight);
-            self.faceKeyboard.transform=CGAffineTransformMakeTranslation(0, 50);
+            self.faceKeyboard.frame=CGRectMake(0, 50,self.frame.size.width, keyboardHeight);
+            //self.faceKeyboard.transform=CGAffineTransformMakeTranslation(0, 50);
         }];
         [self customKeyboardMove:SCREEN_HEIGHT-self.frame.size.height];
     }else{
@@ -181,7 +181,14 @@ static float const FaceKeyboardHeight=224.0;
     }
     
 }
--(void)recordKeyboardChange{
+//左边按钮
+-(void)recordKeyboardChange:(UIButton *)btn{
+    btn.selected=!btn.selected;
+    if (btn.selected) {
+        
+    }else{
+        
+    }
     
 }
 //

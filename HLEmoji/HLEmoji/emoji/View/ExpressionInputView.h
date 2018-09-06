@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#define RATIO_WIDHT320 [UIScreen mainScreen].bounds.size.width/320.0
 @protocol ExpressionViewDelegate <NSObject>
 
 /**

@@ -10,12 +10,14 @@
 typedef NS_ENUM(NSInteger,handleKeyType) {
     handleKeyTypePhoto,
     handleKeyTypeCamera,
+    handleKeyTypeVideo,
     handleKeyTypeIphne,
     handleKeyTypAderess,
     handleKeyTypeFile,
 };
 typedef void(^handleComple)(handleKeyType type);
 @interface ExpressionAddView : UIView
+@property(nonatomic,assign)handleKeyType keyType;
 //消息回调
 @property(nonatomic,copy)handleComple handleBlock;
 -(void)handledidSelectAction:(handleComple)handleBlock;
