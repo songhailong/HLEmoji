@@ -147,7 +147,7 @@ static float const FaceKeyboardHeight=224.0;
         [inputText resignFirstResponder];
         self.AddKeyboard.hidden=NO;
         [UIView animateWithDuration:5 animations:^{
-            self.AddKeyboard.frame=CGRectMake(0, 50,self.frame.size.width, keyboardHeight);
+            self.AddKeyboard.frame=CGRectMake(0, 50,self.frame.size.width, self->keyboardHeight);
             //self.AddKeyboard.transform=CGAffineTransformMakeTranslation(0, 50);
         }];
          [self customKeyboardMove:SCREEN_HEIGHT-self.frame.size.height];
@@ -184,23 +184,55 @@ static float const FaceKeyboardHeight=224.0;
 //左边按钮
 -(void)recordKeyboardChange:(UIButton *)btn{
     btn.selected=!btn.selected;
+    self.faceimage.selected=NO;
+    self.addImg.selected=NO;
     if (btn.selected) {
-        
+        [self.recordImage setImage:[UIImage imageNamed:@"键盘"] forState:UIControlStateNormal];
+        self.btnRecord.hidden=NO;
+        inputText.hidden=YES;
+        [self hide];
+        self.isOpend=NO;
+        self.AddKeyboard.hidden=YES;
+        self.faceKeyboard.hidden=YES;
+        [self customKeyboardMove:SCREEN_HEIGHT-50];
     }else{
-        
+        [inputText becomeFirstResponder];
+        [self.recordImage setImage:[UIImage imageNamed:@"语音"] forState:UIControlStateNormal];
+        self.btnRecord.hidden=YES;
+        inputText.hidden=NO;
+        self.isOpend=YES;
     }
     
 }
+
 //
 -(void)recordUpAction{
     
 }
-//
+
+/**
+ 开始录音
+ */
 -(void)recordDownAction{
-    
+    NSError *error=nil;
+    //激活语音通道
+    AVAudioSession *session=[AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryRecord error:&error];
+    if (session!=nil) {
+        [session setActive:YES error:nil];
+    }else{
+        NSLog(@"session error: %@",error);
+    }
 }
 -(void)hide{
     //[self setBackgroundColor:];
+    //结束第一响应
+    [inputText endEditing:YES];
+    self.isOpend=NO;
+    [self hideFaceAnimation];
+}
+-(void)hideFaceAnimation{
+    
 }
 #pragma mark*******懒加载
 -(ExpressionInputView *)faceKeyboard{
