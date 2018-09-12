@@ -8,6 +8,7 @@
 
 #import "RecordTool.h"
 #import "Mp3Recorder.h"
+#import "UIImageView+GIF.h"
 #import <UIKit/UIKit.h>
 #define SCREEN_HEIGHT    [UIScreen mainScreen].bounds.size.height
 #define SCREEN_WIDTH
@@ -75,8 +76,29 @@
 }
 #pragma mark******方法实现
 -(void)beiganRecord{
+    //开始录制
     [self.recorder startRecord];
-    
+    UIWindow *keyWindow=[UIApplication sharedApplication].keyWindow;
+    [keyWindow addSubview:self.recordCoverView];
+    // 展示录音动画  0代表无限次数
+    [self.animationView GIF_PrePlayWithImageNamesArray:@[@"正发送语音1",@"正发送语音2",@"正发送语音3"] duration:0];
+    //开启定时器
+    dispatch_source_set_event_handler(self.recordTimer, ^{
+        
+        _recordSeconds ++ ;
+        //处理倒计时UI
+        NSLog(@"=============%zd",_recordSeconds);
+        if (_recordSeconds>50) {
+            //[self.recorder stopRecord];
+            //[self clearRecord];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"completeRecord" object:nil];
+        }
+        
+    });
+    dispatch_resume(self.recordTimer);
+}
+-(void)completeRecord:(audioInfoCallback)infoCallbalck{
+    //_infoCallblock=infoCallbalck;
 }
 //取消
 -(void)cancelRecord{
@@ -88,6 +110,19 @@
     [self.recorder stopRecord];
     [self clearRecord];
 }
+-(void)moveOut{
+    if (_recordSeconds>50) {
+        
+    }else{
+        [self.animationView GIF_Stop];
+        [self.animationView  setImage:[UIImage imageNamed:@"松开取消发送"]];
+    }
+}
+-(void)continueRecord{
+    //播放GIF
+    [self.animationView GIF_PrePlayWithImageNamesArray:@[@"正发送语音1",@"正发送语音2",@"正发送语音3"] duration:0];
+}
+
 //录音结束的代理
 -(void)endConvertWithData:(NSData *)voiceData seconds:(NSTimeInterval)time{
     if(_infoCallblock){
@@ -106,4 +141,9 @@
         dispatch_source_cancel(self.recordTimer);
     }];
 }
+- (void)dealloc
+{
+    dispatch_source_cancel(_recordTimer);
+}
+
 @end

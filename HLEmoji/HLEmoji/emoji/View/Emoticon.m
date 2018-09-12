@@ -18,10 +18,39 @@
     return emoticon;
 }
 -(void)setCode:(NSString *)code{
-  NSScanner *scanner=  [NSScanner scannerWithString:code];
+    _code=code;
+//  NSScanner *scanner=  [NSScanner scannerWithString:code];
+//    uint32_t result=0;
+//    [scanner scanHexInt:&result];
+    //_emotionStr=
+    unsigned unicode = 0;
+    [[NSScanner scannerWithString:code]scanHexInt:&unicode];
     
+    char chars[4];
+    
+    int len = 4;
+    
+    chars[0] = (unicode >> 24) & (1<<24) -1;
+    chars[1] = (unicode >> 16) & (1<<16)-1;
+    chars[2] =  (unicode >> 8) & (1<<8) -1;
+    chars[3] = unicode & (1<<8) -1;
+    
+    NSString * unicodeString = [[NSString alloc]initWithBytes:chars length:len encoding:NSUTF32StringEncoding];
+    _emotionStr=unicodeString;
 }
 @end
 @implementation EmoticonGroup
-
+-(void)setGroupID:(NSString *)groupID{
+    _groupID=groupID;
+    if ([groupID containsString:@"default"]) {
+        _nameCN=@"默认";
+        _groupType=EmoticonTypeImage;
+    }else if ([groupID containsString:@"emoji"]){
+        _nameCN=@"emoji";
+        _groupType=EmoticonTypeEmoji;
+    }else if ([groupID containsString:@"lxh"]){
+        _nameCN=@"浪小花";
+        _groupType=EmoticonTypeImage;
+    }
+}
 @end

@@ -8,11 +8,16 @@
 
 #import "ExpressionInputView.h"
 #import "ExpressionCell.h"
+#import "Emoticon.h"
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 static NSString * const  CELLIDEN=@"cell";
 static NSString * const  CELLHeader=@"Header";
+static CGFloat emotionH =50;
 @interface  ExpressionInputView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) UIView *vTopBg;
 @property(nonatomic,strong)UICollectionView *collView;
+@property(nonatomic,strong)UIPageControl * PageControl;
 @property (nonatomic, strong) NSMutableArray *emojiDictionary;
 @property (nonatomic, strong) UIView *vDownBg;
 @property (nonatomic, strong) UIButton *btnSend;
@@ -39,7 +44,7 @@ static NSString * const  CELLHeader=@"Header";
 -(void)initUI{
     _vTopBg = [[UIView alloc]init];
     [self addSubview:_vTopBg];
-    [self addSubview:self.collView];
+    //[self addSubview:self.collView];
     _vDownBg = [[UIView alloc]init];
     _vDownBg.backgroundColor = [UIColor whiteColor];
     [self addSubview:_vDownBg];
@@ -63,19 +68,32 @@ static NSString * const  CELLHeader=@"Header";
 }
 #pragma mark*********代理
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *face = [self.emojiDictionary objectAtIndex:indexPath.row];
-    [_delegate selectWithExpression:face];
+    //NSString *face = [self.emojiDictionary objectAtIndex:indexPath.row];
+   /// [_delegate selectWithExpression:face];
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 1;
+    return self.emojiDictionary.count;
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.emojiDictionary.count;
+    if (_emojiDictionary.count) {
+        EmoticonGroup *group=[_emojiDictionary objectAtIndex:section];
+        
+        NSLog(@"%zd",group.emoticons.count);
+        
+        return group.emoticons.count;
+    }else{
+      return 0;
+    }
+}
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake(40, 40);
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
    ExpressionCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:CELLIDEN forIndexPath:indexPath];
     
-    NSString *imagePath=[self.emojiDictionary objectAtIndex:indexPath.row];
+    EmoticonGroup *group=[self.emojiDictionary objectAtIndex:indexPath.section];
+    Emoticon *emo=[group.emoticons objectAtIndex:indexPath.row];
+    cell.backgroundColor=[UIColor redColor];
     //[cell loadData:imagePath];
     return cell;
 }
@@ -93,18 +111,29 @@ static NSString * const  CELLHeader=@"Header";
 #pragma mark********懒加载
 -(UICollectionView*)collView{
     if (!_collView) {
+        
+        CGFloat itemWith=(SCREEN_WIDTH-10*2)/7.0;
+        
+        
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-        layout.minimumLineSpacing = 5;
-        layout.minimumInteritemSpacing = 5;
-        layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
-        CGRect r = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+        //行间距
+        layout.minimumLineSpacing = 0;
+        //列间距
+        layout.minimumInteritemSpacing = 0;
+        layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+        [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+        CGRect r = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height-40);
         _collView = [[UICollectionView alloc]initWithFrame:r collectionViewLayout:layout];
         [_collView registerClass:[ExpressionCell class] forCellWithReuseIdentifier:CELLIDEN];
         //[_collView registerClass:[WXexpressionHead class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:CELLHeader];
         _collView.delegate = self;
         _collView.dataSource = self;
         _collView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
-        _collView.backgroundColor = [UIColor clearColor];
+        _collView.backgroundColor = [UIColor greenColor];
+        _collView.pagingEnabled=YES;
+        _collView.bounces=NO;
+        _collView.showsHorizontalScrollIndicator=NO;
+        
     }
     return _collView;
 }
@@ -158,14 +187,43 @@ static NSString * const  CELLHeader=@"Header";
         dispatch_once(&onceToken, ^{
            NSString *emoticonBundlePath = [[NSBundle mainBundle] pathForResource:@"Emoticons" ofType:@"bundle"];
         NSString *emoticonPlistPath = [emoticonBundlePath stringByAppendingPathComponent:@"emoticons.plist"];
-    NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:emoticonPlistPath];
-            NSArray *package=plist[@"packages"];
-            
+       NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:emoticonPlistPath];
+        NSArray *package=plist[@"packages"];
+            for (NSDictionary *dic in package) {
+                EmoticonGroup *group=[[EmoticonGroup alloc] init];
+                group.groupID=[dic objectForKey:@"id"];
+                group.version=[dic objectForKey:@"version"];
+                group.displayOnly=[dic objectForKey:@"display_only"];
+                NSString *emoticonGroupidpatn=[[emoticonBundlePath stringByAppendingPathComponent:group.groupID] stringByAppendingPathComponent:@"info.plist"];
+                NSDictionary *info=[NSDictionary dictionaryWithContentsOfFile:emoticonGroupidpatn];
+                NSLog(@"%@",info);
+                group.nameCN=[info objectForKey:@"group_name_cn"];
+                group.nameTW=[info objectForKey:@"group_name_tw"];
+                group.nameEN=[info objectForKey:@"group_name_en"];
+                NSArray *emotions=[info objectForKey:@"emoticons"];
+                NSMutableArray *motionArr=[[NSMutableArray alloc] init];
+                for (NSDictionary * emotiondDic in emotions) {
+                    Emoticon *emotion=[Emoticon initwithDic:emotiondDic];
+                    emotion.groupid=group.groupID;
+                    emotion.imagePath=[[emoticonBundlePath stringByAppendingPathComponent:group.groupID] stringByAppendingString:emotion.chs];
+                    [motionArr addObject:emotion];
+                }
+                group.emoticons=motionArr;
+                [self.emojiDictionary  addObject:group];
+            }
         });
     }
     return _emojiDictionary;
 }
-
+-(UIPageControl *)PageControl{
+    if (!_PageControl) {
+        _PageControl=[[UIPageControl alloc] init];
+        _PageControl.hidesForSinglePage=YES;
+        _PageControl.currentPageIndicatorTintColor=[UIColor orangeColor];
+        _PageControl.pageIndicatorTintColor=[UIColor grayColor];
+    }
+    return _PageControl;
+}
 //布局
 -(void)layoutSubviews{
     [super layoutSubviews];
@@ -178,6 +236,7 @@ static NSString * const  CELLHeader=@"Header";
     self.vTopBg.frame=rect;
     
     rect=self.collView.frame;
+    NSLog(@"%@",NSStringFromCGRect(rect));
     rect.origin.x=0;
     rect.origin.y=0;
     rect.size.width=self.vTopBg.frame.size.width;
@@ -240,6 +299,7 @@ static NSString * const  CELLHeader=@"Header";
     r.size.width = w;
     r.size.height = self.vDownBg.frame.size.height;
     self.btnflower.frame = r;
+    [self addSubview:self.collView];
 }
 
 

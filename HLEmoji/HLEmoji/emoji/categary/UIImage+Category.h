@@ -10,4 +10,5 @@
 
 @interface UIImage (Category)
 +(UIImage *)loadExpressionWithPathUrl:(NSString *)PathUrl;
++ (UIImage *)imageWithEmoji:(NSString *)emoji size:(CGFloat)size;
 @end

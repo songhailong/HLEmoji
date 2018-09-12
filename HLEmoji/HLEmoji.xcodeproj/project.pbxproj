@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82096F322142251C0062029E /* RecordTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 82096F312142251C0062029E /* RecordTool.m */; };
+		82096F3A214228770062029E /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82096F36214228770062029E /* libmp3lame.a */; };
+		82096F3B214228770062029E /* Mp3Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 82096F38214228770062029E /* Mp3Recorder.m */; };
+		82096F3C214228770062029E /* TSMessagesDefaultDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 82096F39214228770062029E /* TSMessagesDefaultDesign.json */; };
+		82500F542148F7C3008D6A06 /* compose_emotion_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82500F522148F7C2008D6A06 /* compose_emotion_delete@2x.png */; };
+		82500F552148F7C3008D6A06 /* compose_emotion_delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82500F532148F7C3008D6A06 /* compose_emotion_delete@3x.png */; };
 		8276CBC62141211800B38702 /* NSMutableArray+Emoticon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8276CBC52141211800B38702 /* NSMutableArray+Emoticon.m */; };
 		829FBC022137D348002EC725 /* chatBar_colorMore_audioCallSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFB2137D347002EC725 /* chatBar_colorMore_audioCallSelected@2x.png */; };
 		829FBC032137D348002EC725 /* 通话@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFC2137D347002EC725 /* 通话@2x.png */; };
@@ -404,6 +410,7 @@
 		82AC61F521364C4900314F6E /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = 82AC607121364C4800314F6E /* Contents.json */; };
 		82AC61F621364C4900314F6E /* 验证消息icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82AC607221364C4800314F6E /* 验证消息icon@2x.png */; };
 		82AC61F721364C4900314F6E /* 验证消息icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82AC607321364C4800314F6E /* 验证消息icon@3x.png */; };
+		82C303772147499D00284ADE /* UIImageView+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C303762147499D00284ADE /* UIImageView+GIF.m */; };
 		82DDEAE02134E9C6004342E4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DDEADF2134E9C6004342E4 /* AppDelegate.m */; };
 		82DDEAE32134E9C6004342E4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DDEAE22134E9C6004342E4 /* ViewController.m */; };
 		82DDEAE62134E9C6004342E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82DDEAE42134E9C6004342E4 /* Main.storyboard */; };
@@ -439,6 +446,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		82096F302142251C0062029E /* RecordTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordTool.h; sourceTree = "<group>"; };
+		82096F312142251C0062029E /* RecordTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordTool.m; sourceTree = "<group>"; };
+		82096F34214228770062029E /* ACMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACMacros.h; sourceTree = "<group>"; };
+		82096F35214228770062029E /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
+		82096F36214228770062029E /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
+		82096F37214228770062029E /* Mp3Recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mp3Recorder.h; sourceTree = "<group>"; };
+		82096F38214228770062029E /* Mp3Recorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mp3Recorder.m; sourceTree = "<group>"; };
+		82096F39214228770062029E /* TSMessagesDefaultDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TSMessagesDefaultDesign.json; sourceTree = "<group>"; };
+		82500F522148F7C2008D6A06 /* compose_emotion_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose_emotion_delete@2x.png"; sourceTree = "<group>"; };
+		82500F532148F7C3008D6A06 /* compose_emotion_delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose_emotion_delete@3x.png"; sourceTree = "<group>"; };
 		8276CBC42141211800B38702 /* NSMutableArray+Emoticon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Emoticon.h"; sourceTree = "<group>"; };
 		8276CBC52141211800B38702 /* NSMutableArray+Emoticon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Emoticon.m"; sourceTree = "<group>"; };
 		829FBBFB2137D347002EC725 /* chatBar_colorMore_audioCallSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_colorMore_audioCallSelected@2x.png"; sourceTree = "<group>"; };
@@ -838,6 +855,8 @@
 		82AC607121364C4800314F6E /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		82AC607221364C4800314F6E /* 验证消息icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "验证消息icon@2x.png"; sourceTree = "<group>"; };
 		82AC607321364C4800314F6E /* 验证消息icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "验证消息icon@3x.png"; sourceTree = "<group>"; };
+		82C303752147499D00284ADE /* UIImageView+GIF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+GIF.h"; sourceTree = "<group>"; };
+		82C303762147499D00284ADE /* UIImageView+GIF.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+GIF.m"; sourceTree = "<group>"; };
 		82DDEADB2134E9C5004342E4 /* HLEmoji.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLEmoji.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DDEADE2134E9C5004342E4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		82DDEADF2134E9C6004342E4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -874,6 +893,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82096F3A214228770062029E /* libmp3lame.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -894,6 +914,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		82096F33214228770062029E /* RecordUtil */ = {
+			isa = PBXGroup;
+			children = (
+				82096F34214228770062029E /* ACMacros.h */,
+				82096F35214228770062029E /* lame.h */,
+				82096F36214228770062029E /* libmp3lame.a */,
+				82096F37214228770062029E /* Mp3Recorder.h */,
+				82096F38214228770062029E /* Mp3Recorder.m */,
+				82096F39214228770062029E /* TSMessagesDefaultDesign.json */,
+			);
+			path = RecordUtil;
+			sourceTree = "<group>";
+		};
 		82AC5E6821364C4600314F6E /* Chat的副本 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2429,6 +2462,8 @@
 		82DDEB102134EAEC004342E4 /* emoji */ = {
 			isa = PBXGroup;
 			children = (
+				82500F522148F7C2008D6A06 /* compose_emotion_delete@2x.png */,
+				82500F532148F7C3008D6A06 /* compose_emotion_delete@3x.png */,
 				829FBBFC2137D347002EC725 /* 通话@2x.png */,
 				829FBBFB2137D347002EC725 /* chatBar_colorMore_audioCallSelected@2x.png */,
 				829FBBFF2137D348002EC725 /* 拍摄@2x.png */,
@@ -2450,6 +2485,8 @@
 				82DDEB1521350D0B004342E4 /* UIImage+Category.m */,
 				8276CBC42141211800B38702 /* NSMutableArray+Emoticon.h */,
 				8276CBC52141211800B38702 /* NSMutableArray+Emoticon.m */,
+				82C303752147499D00284ADE /* UIImageView+GIF.h */,
+				82C303762147499D00284ADE /* UIImageView+GIF.m */,
 			);
 			path = categary;
 			sourceTree = "<group>";
@@ -2457,6 +2494,7 @@
 		82DDEB1721350D2F004342E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				82096F33214228770062029E /* RecordUtil */,
 				82DDEB1B213518BD004342E4 /* ExpressionKeyboard.h */,
 				82DDEB1C213518BD004342E4 /* ExpressionKeyboard.m */,
 				82DDEB1E213518F9004342E4 /* ExpressionInputView.h */,
@@ -2469,6 +2507,8 @@
 				82DDEB2A21353FF0004342E4 /* Emoticon.m */,
 				829FBC092137DA1C002EC725 /* AddViewHandleCell.h */,
 				829FBC0A2137DA1C002EC725 /* AddViewHandleCell.m */,
+				82096F302142251C0062029E /* RecordTool.h */,
+				82096F312142251C0062029E /* RecordTool.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2738,6 +2778,7 @@
 				82AC610A21364C4800314F6E /* [拳头]@3x.png in Resources */,
 				82AC609721364C4800314F6E /* [可爱]@2x.png in Resources */,
 				82AC615D21364C4900314F6E /* [足球]@2x.png in Resources */,
+				82096F3C214228770062029E /* TSMessagesDefaultDesign.json in Resources */,
 				82AC61E721364C4900314F6E /* 表情@2x.png in Resources */,
 				82AC609021364C4800314F6E /* Contents.json in Resources */,
 				82AC60EB21364C4800314F6E /* [心碎]@2x.png in Resources */,
@@ -2859,6 +2900,7 @@
 				82AC60FE21364C4800314F6E /* [抓狂]@3x.png in Resources */,
 				82AC607621364C4800314F6E /* Contents.json in Resources */,
 				82AC61C321364C4900314F6E /* 我方语音气泡01@2x.png in Resources */,
+				82500F542148F7C3008D6A06 /* compose_emotion_delete@2x.png in Resources */,
 				82AC607D21364C4800314F6E /* [一根手指]@3x.png in Resources */,
 				82AC615721364C4800314F6E /* [蜡烛]@2x.png in Resources */,
 				82AC611B21364C4800314F6E /* [敲打]@2x.png in Resources */,
@@ -2879,6 +2921,7 @@
 				82AC611321364C4800314F6E /* [掉泪]@3x.png in Resources */,
 				82AC619F21364C4900314F6E /* Contents.json in Resources */,
 				82AC60B521364C4800314F6E /* [地雷]@2x.png in Resources */,
+				82500F552148F7C3008D6A06 /* compose_emotion_delete@3x.png in Resources */,
 				82AC613121364C4800314F6E /* [白眼]@3x.png in Resources */,
 				82AC619A21364C4900314F6E /* 对方文件气泡@2x.png in Resources */,
 				82AC613A21364C4800314F6E /* [破涕为笑]@3x.png in Resources */,
@@ -3001,12 +3044,15 @@
 			files = (
 				82DDEB1D213518BD004342E4 /* ExpressionKeyboard.m in Sources */,
 				8276CBC62141211800B38702 /* NSMutableArray+Emoticon.m in Sources */,
+				82096F3B214228770062029E /* Mp3Recorder.m in Sources */,
 				82DDEAE32134E9C6004342E4 /* ViewController.m in Sources */,
 				829FBC0B2137DA1C002EC725 /* AddViewHandleCell.m in Sources */,
+				82C303772147499D00284ADE /* UIImageView+GIF.m in Sources */,
 				82DDEB232135192C004342E4 /* ExpressionAddView.m in Sources */,
 				82DDEB26213519C9004342E4 /* ExpressionCell.m in Sources */,
 				82DDEAEE2134E9CB004342E4 /* main.m in Sources */,
 				82DDEB20213518F9004342E4 /* ExpressionInputView.m in Sources */,
+				82096F322142251C0062029E /* RecordTool.m in Sources */,
 				82DDEAE02134E9C6004342E4 /* AppDelegate.m in Sources */,
 				82DDEB1621350D0B004342E4 /* UIImage+Category.m in Sources */,
 				82DDEB2B21353FF0004342E4 /* Emoticon.m in Sources */,
@@ -3185,6 +3231,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HLEmoji/emoji/View/RecordUtil",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = yingmeng.HLEmoji;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3201,6 +3251,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HLEmoji/emoji/View/RecordUtil",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = yingmeng.HLEmoji;
 				PRODUCT_NAME = "$(TARGET_NAME)";

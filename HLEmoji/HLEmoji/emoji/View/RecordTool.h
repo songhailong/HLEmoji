@@ -37,4 +37,10 @@ typedef void (^audioInfoCallback)(NSData *audioData,NSInteger seconds);
  继续录制
  */
 -(void)continueRecord;
+
+/**
+ 超出时间录制
+ */
+-(void)completeRecord:(audioInfoCallback)infoCallbalck;
+
 @end

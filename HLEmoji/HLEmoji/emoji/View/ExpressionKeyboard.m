@@ -9,6 +9,7 @@
 #import "ExpressionKeyboard.h"
 #import "ExpressionInputView.h"
 #import "ExpressionAddView.h"
+#import "RecordTool.h"
 #define SCREEN_HEIGHT    [UIScreen mainScreen].bounds.size.height //屏高
 static  NSString * const ChatKeyboardResign=@"ChatKeyboardResign";
 static float const FaceKeyboardHeight=224.0;
@@ -25,6 +26,8 @@ static float const FaceKeyboardHeight=224.0;
 @property(nonatomic,strong)ExpressionInputView *faceKeyboard;
 //加号键盘
 @property(nonatomic,strong)ExpressionAddView *AddKeyboard;
+//录音工具
+@property(nonatomic,strong)RecordTool *recordTool;
 @end
 @implementation ExpressionKeyboard
 
@@ -40,10 +43,10 @@ static float const FaceKeyboardHeight=224.0;
         CGFloat height=50;
         CGFloat width=frame.size.width;
          self.recordImage=[UIButton new];
+         self.recordImage.frame=CGRectMake(5, (height-30)/2.0, 30, 30);
         //左边语音按钮
         [self.recordImage setImage:[UIImage imageNamed:@"语音"] forState:UIControlStateNormal];
         [self.recordImage setImage:[UIImage imageNamed:@"键盘" ] forState:UIControlStateSelected];
-        self.recordImage.frame=CGRectMake(5, (height-30)/2.0, 30, 30);
         [self.recordImage addTarget:self action:@selector(recordKeyboardChange:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.recordImage];
         //输入框
@@ -60,13 +63,24 @@ static float const FaceKeyboardHeight=224.0;
         [self.btnRecord setTitle:@"按住说话" forState:UIControlStateNormal];
         [self.btnRecord setTitle:@"松开结束" forState:UIControlStateHighlighted];
         self.btnRecord.frame=inputText.frame;
-        //self.btnRecord.layer.borderColor=RGB(218, 220, 220).CGColor;
+        self.btnRecord.layer.borderWidth=2;
         self.btnRecord.layer.borderColor=[UIColor colorWithRed:218/255.0 green:220/255.0 blue:220/255.0 alpha:1].CGColor;
         self.btnRecord.layer.cornerRadius=6;
         self.btnRecord.hidden=true;
         [self.btnRecord setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        //手指回到录音按钮 松开
         [self.btnRecord addTarget:self action:@selector(recordUpAction) forControlEvents:UIControlEventTouchUpInside];
+       //按下录音按钮
         [self.btnRecord addTarget:self action:@selector(recordDownAction) forControlEvents:UIControlEventTouchDown];
+        //手指离开录音按钮，但不松开
+        [self.btnRecord addTarget:self action:@selector(audioLpButtonMoveOut:) forControlEvents:UIControlEventTouchDragExit|UIControlEventTouchDragOutside];
+        //手指离开录音按钮，松开
+        [self.btnRecord addTarget:self action:@selector(audioLpButtonMoveOutTouchUp:) forControlEvents:UIControlEventTouchUpOutside|UIControlEventTouchCancel];
+        //手指回到录音按钮，但不松开
+        [self.btnRecord addTarget:self
+                           action:@selector(audioLpButtonMoveInside:) forControlEvents:UIControlEventTouchDragInside|UIControlEventTouchDragEnter];
+        
+        
         [self addSubview:self.btnRecord];
         //表情按钮
         _faceimage=[[UIButton alloc] initWithFrame:CGRectMake(inputText.frame.size.width+inputText.frame.origin.x+5, (height-30)/2, 30, 30)];
@@ -98,6 +112,32 @@ static float const FaceKeyboardHeight=224.0;
     [self  addSubview:self.AddKeyboard];
     [self addSubview:self.faceKeyboard];
 }
+-(void)initBtnRecord{
+    self.btnRecord=[UIButton new];
+    [self.btnRecord setTitle:@"按住说话" forState:UIControlStateNormal];
+    [self.btnRecord setTitle:@"松开结束" forState:UIControlStateHighlighted];
+    self.btnRecord.frame=inputText.frame;
+    self.btnRecord.layer.borderWidth=2;
+    self.btnRecord.layer.borderColor=[UIColor colorWithRed:218/255.0 green:220/255.0 blue:220/255.0 alpha:1].CGColor;
+    self.btnRecord.layer.cornerRadius=6;
+    self.btnRecord.hidden=true;
+    [self.btnRecord setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    //手指回到录音按钮 松开
+    [self.btnRecord addTarget:self action:@selector(recordUpAction) forControlEvents:UIControlEventTouchUpInside];
+    //按下录音按钮
+    [self.btnRecord addTarget:self action:@selector(recordDownAction) forControlEvents:UIControlEventTouchDown];
+    //手指离开录音按钮，但不松开
+    [self.btnRecord addTarget:self action:@selector(audioLpButtonMoveOut:) forControlEvents:UIControlEventTouchDragExit|UIControlEventTouchDragOutside];
+    //手指离开录音按钮，松开
+    [self.btnRecord addTarget:self action:@selector(audioLpButtonMoveOutTouchUp:) forControlEvents:UIControlEventTouchUpOutside|UIControlEventTouchCancel];
+    //手指回到录音按钮，但不松开
+    [self.btnRecord addTarget:self
+                       action:@selector(audioLpButtonMoveInside:) forControlEvents:UIControlEventTouchDragInside|UIControlEventTouchDragEnter];
+    
+    
+   // [self addSubview:self.btnRecord];
+}
+
 #pragma mark - 键盘降落
 - (void)keyboardResignFirstResponder:(NSNotification *)note
 {     //键盘隐藏
@@ -171,7 +211,7 @@ static float const FaceKeyboardHeight=224.0;
         self.faceKeyboard.hidden=NO;
         [self bringSubviewToFront:self.faceKeyboard];
         [UIView animateWithDuration:0.5 animations:^{
-            self.faceKeyboard.frame=CGRectMake(0, 50,self.frame.size.width, keyboardHeight);
+            //self.faceKeyboard.frame=CGRectMake(0, 50,self.frame.size.width, keyboardHeight);
             //self.faceKeyboard.transform=CGAffineTransformMakeTranslation(0, 50);
         }];
         [self customKeyboardMove:SCREEN_HEIGHT-self.frame.size.height];
@@ -187,7 +227,7 @@ static float const FaceKeyboardHeight=224.0;
     self.faceimage.selected=NO;
     self.addImg.selected=NO;
     if (btn.selected) {
-        [self.recordImage setImage:[UIImage imageNamed:@"键盘"] forState:UIControlStateNormal];
+        //[self.recordImage setImage:[UIImage imageNamed:@"键盘"] forState:UIControlStateNormal];
         self.btnRecord.hidden=NO;
         inputText.hidden=YES;
         [self hide];
@@ -197,7 +237,7 @@ static float const FaceKeyboardHeight=224.0;
         [self customKeyboardMove:SCREEN_HEIGHT-50];
     }else{
         [inputText becomeFirstResponder];
-        [self.recordImage setImage:[UIImage imageNamed:@"语音"] forState:UIControlStateNormal];
+        //[self.recordImage setImage:[UIImage imageNamed:@"语音"] forState:UIControlStateNormal];
         self.btnRecord.hidden=YES;
         inputText.hidden=NO;
         self.isOpend=YES;
@@ -205,24 +245,48 @@ static float const FaceKeyboardHeight=224.0;
     
 }
 
-//
+//结束录音
 -(void)recordUpAction{
+    NSLog(@"这里执行");
     
+    [self.recordTool stopRecord:^(NSData *audioData, NSInteger seconds) {
+        NSLog(@"录制时长时长%zd",seconds);
+    }];
+    self.recordTool=nil;
 }
 
 /**
  开始录音
  */
 -(void)recordDownAction{
-    NSError *error=nil;
-    //激活语音通道
-    AVAudioSession *session=[AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryRecord error:&error];
-    if (session!=nil) {
-        [session setActive:YES error:nil];
-    }else{
-        NSLog(@"session error: %@",error);
-    }
+    
+    [self.recordTool beiganRecord];
+//    __weak typeof (self)weakself=self;
+//    [self.recordTool completeRecord:^(NSData *audioData, NSInteger seconds) {
+//         NSLog(@"录制时长时长%zd",seconds);
+//      weakself.recordTool=nil;
+//    }];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completeRecord) name:@"completeRecord" object:nil];
+    
+}
+-(void)completeRecord{
+    [self.btnRecord sendActionsForControlEvents:UIControlEventTouchUpInside];
+    [self initBtnRecord];
+   // [self recordUpAction];
+}
+#pragma mark*******手指离开录音按钮，但不松开
+-(void)audioLpButtonMoveOut:(UIButton *)audioLpButton{
+    [self.recordTool moveOut];
+}
+#pragma mark*******手指离开录音按钮 松开
+-(void)audioLpButtonMoveOutTouchUp:(UIButton *)audioLpButton{
+    [self.recordTool cancelRecord];
+    //释放蒙版
+    self.recordTool=nil;
+}
+#pragma mark*******手指回到录音按钮，但不松开
+-(void)audioLpButtonMoveInside:(UIButton *)audioLpButton{
+    [self.recordTool continueRecord];
 }
 -(void)hide{
     //[self setBackgroundColor:];
@@ -248,6 +312,13 @@ static float const FaceKeyboardHeight=224.0;
         _AddKeyboard.hidden=YES;
     }
     return _AddKeyboard;
+}
+-(RecordTool *)recordTool{
+    if (!_recordTool) {
+        //NSLog(@"执行===执行");
+        _recordTool=[RecordTool shareRecordTool];
+    }
+    return _recordTool;
 }
 -(void)layoutSubviews{
     [super layoutSubviews];
