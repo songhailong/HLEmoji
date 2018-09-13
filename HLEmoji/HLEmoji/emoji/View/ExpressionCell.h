@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class Emoticon;
 @interface ExpressionCell : UICollectionViewCell
-@property (nonatomic, strong) UIImageView *ivImg;
+@property (nonatomic, strong) UIButton *ivImg;
 @property(nonatomic,strong)Emoticon *emoticon;
 @property(nonatomic,assign)BOOL isDelete;
 - (void)loadData:(NSString*)imageName;

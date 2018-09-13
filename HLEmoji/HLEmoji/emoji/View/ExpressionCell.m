@@ -13,11 +13,16 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        _ivImg = [[UIImageView alloc]init];
-        _ivImg.frame=CGRectMake(0, 0, 32, 32);
-        _ivImg.center=self.center;
-        
+       // NSLog(@"cell创建");
+        self.backgroundColor=[UIColor greenColor];
+        _ivImg = [[UIButton alloc]init];
+        _ivImg.frame=CGRectMake(10, 10, 32, 32);
+        _ivImg.center=CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        _ivImg.userInteractionEnabled=NO;
+        _ivImg.backgroundColor=[UIColor redColor];
+        _ivImg.contentMode=UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:_ivImg];
+        
     }
     return self;
 }
@@ -30,34 +35,45 @@
     [self updataContent];
 }
 -(void)updataContent{
-    if (_isDelete) {
-        _ivImg.image=[UIImage imageNamed:@"compose_emotion_delete"];
-        
+     [_ivImg  setImage:nil forState:UIControlStateNormal];
+     [_ivImg setTitle:nil forState:UIControlStateNormal];;
+    if (_emoticon.isRemove) {
+        //_ivImg.image=[UIImage imageNamed:@"compose_emotion_delete"];
+        [_ivImg setImage:[UIImage imageNamed:@"compose_emotion_delete"] forState:UIControlStateNormal];
     }else if (_emoticon){
+        
+        
+        
+        
         if (_emoticon.type==EmoticonTypeImage) {
             if (_emoticon.imagePath!=nil) {
-                _ivImg.image=[UIImage imageWithContentsOfFile:_emoticon.imagePath];
+                [_ivImg setImage:[UIImage imageWithContentsOfFile:_emoticon.imagePath] forState:UIControlStateNormal];
             }else{
-                _ivImg.image=nil;
+                [_ivImg  setImage:nil forState:UIControlStateNormal];
             }
         }else if (_emoticon.type==EmoticonTypeEmoji){
             if (_emoticon.emotionStr) {
-                UIImage  *image=[UIImage imageWithEmoji:_emoticon.emotionStr size:_ivImg.frame.size.width];
-                _ivImg.image=image;
+               [_ivImg  setImage:nil forState:UIControlStateNormal];
+                [_ivImg setTitle:_emoticon.emotionStr forState:UIControlStateNormal];
             }else
             {
-               _ivImg.image=nil;
+                [_ivImg setTitle:nil forState:UIControlStateNormal];
+            }
+        }else if (_emoticon.type==EmoticonTypeRemove){
+             {
+                
             }
         }
     }
 }
 - (void)loadData:(NSString*)imageName{
-    self.ivImg.image=[UIImage imageNamed:imageName];
+    //self.ivImg.image=[UIImage imageNamed:imageName];
 }
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    self.ivImg.frame=CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    //self.ivImg.frame=CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    //self.ivImg.center=self.center;
     
 }
 @end

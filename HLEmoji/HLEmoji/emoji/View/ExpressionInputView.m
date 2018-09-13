@@ -14,7 +14,7 @@
 static NSString * const  CELLIDEN=@"cell";
 static NSString * const  CELLHeader=@"Header";
 static CGFloat emotionH =50;
-@interface  ExpressionInputView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface  ExpressionInputView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>
 @property (nonatomic, strong) UIView *vTopBg;
 @property(nonatomic,strong)UICollectionView *collView;
 @property(nonatomic,strong)UIPageControl * PageControl;
@@ -27,6 +27,10 @@ static CGFloat emotionH =50;
 @property (nonatomic, strong) UIView *vHorLine;
 @property (nonatomic, strong) UIView *vLineOne;
 @property (nonatomic, strong) UIView *vLineTwo;
+@property (nonatomic, strong) NSArray<NSNumber *> *emoticonGroupPageIndexs;
+@property (nonatomic, strong) NSArray<NSNumber *> *emoticonGroupPageCounts;
+@property (nonatomic, assign) NSInteger emoticonGroupTotalPageCount;
+@property (nonatomic, assign) NSInteger currentPageIndex;
 @end
 @implementation ExpressionInputView
 
@@ -35,7 +39,7 @@ static CGFloat emotionH =50;
     self = [super initWithFrame:frame];
     if(self){
         self.backgroundColor = [UIColor colorWithRed:249/255.0 green:249/255.0 blue:249/255.0 alpha:1];
-        self.backgroundColor=[UIColor redColor];
+        //self.backgroundColor=[UIColor redColor];
         [self initUI];
         
     }
@@ -68,6 +72,9 @@ static CGFloat emotionH =50;
 }
 #pragma mark*********代理
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+EmoticonGroup *mog=[_emojiDictionary objectAtIndex:indexPath.section];
+    Emoticon *emo=mog.emoticons[indexPath.row];
+    NSLog(@"是否删除%d=======imagepath%@======emotionStr%@",emo.isRemove,emo.imagePath,emo.emotionStr);
     //NSString *face = [self.emojiDictionary objectAtIndex:indexPath.row];
    /// [_delegate selectWithExpression:face];
 }
@@ -78,24 +85,33 @@ static CGFloat emotionH =50;
     if (_emojiDictionary.count) {
         EmoticonGroup *group=[_emojiDictionary objectAtIndex:section];
         
-        NSLog(@"%zd",group.emoticons.count);
+        //NSLog(@"%zd",group.emoticons.count);
         
         return group.emoticons.count;
     }else{
       return 0;
     }
 }
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(40, 40);
-}
+//-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+//    return CGSizeMake(40, 40);
+//}
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
    ExpressionCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:CELLIDEN forIndexPath:indexPath];
     
     EmoticonGroup *group=[self.emojiDictionary objectAtIndex:indexPath.section];
     Emoticon *emo=[group.emoticons objectAtIndex:indexPath.row];
-    cell.backgroundColor=[UIColor redColor];
+    cell.backgroundColor=[UIColor greenColor];
+    cell.emoticon=emo;
     //[cell loadData:imagePath];
     return cell;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    NSInteger page=(scrollView.contentOffset.x/scrollView.frame.size.width);
+    //NSLog(@"%zd页数",page);
+    //if (page<0)page=0 ;
+    //else if (page>=)
+    
 }
 
 #pragma mark*******按钮
@@ -113,26 +129,31 @@ static CGFloat emotionH =50;
     if (!_collView) {
         
         CGFloat itemWith=(SCREEN_WIDTH-10*2)/7.0;
-        
+        CGFloat paddingLeft=(SCREEN_WIDTH-7*itemWith)/2.0;
+        CGFloat paddingRight=SCREEN_WIDTH-paddingLeft-itemWith*7;
         
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+        layout.itemSize=CGSizeMake(itemWith, emotionH);
         //行间距
         layout.minimumLineSpacing = 0;
         //列间距
-        layout.minimumInteritemSpacing = 0;
-        layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+        layout.minimumInteritemSpacing =0;
+        layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
         [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-        CGRect r = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height-40);
+        CGRect r = CGRectMake(10, 0, self.frame.size.width-20, emotionH*3);
         _collView = [[UICollectionView alloc]initWithFrame:r collectionViewLayout:layout];
         [_collView registerClass:[ExpressionCell class] forCellWithReuseIdentifier:CELLIDEN];
         //[_collView registerClass:[WXexpressionHead class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:CELLHeader];
         _collView.delegate = self;
         _collView.dataSource = self;
-        _collView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
-        _collView.backgroundColor = [UIColor greenColor];
+        //_collView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
+        _collView.backgroundColor = [UIColor whiteColor];
         _collView.pagingEnabled=YES;
         _collView.bounces=NO;
         _collView.showsHorizontalScrollIndicator=NO;
+       //_collView.clipsToBounds=NO;
+        _collView.canCancelContentTouches=NO;
+//        _collView.multipleTouchEnabled=NO;
         
     }
     return _collView;
@@ -196,17 +217,27 @@ static CGFloat emotionH =50;
                 group.displayOnly=[dic objectForKey:@"display_only"];
                 NSString *emoticonGroupidpatn=[[emoticonBundlePath stringByAppendingPathComponent:group.groupID] stringByAppendingPathComponent:@"info.plist"];
                 NSDictionary *info=[NSDictionary dictionaryWithContentsOfFile:emoticonGroupidpatn];
-                NSLog(@"%@",info);
+               // NSLog(@"%@",info);
                 group.nameCN=[info objectForKey:@"group_name_cn"];
                 group.nameTW=[info objectForKey:@"group_name_tw"];
                 group.nameEN=[info objectForKey:@"group_name_en"];
                 NSArray *emotions=[info objectForKey:@"emoticons"];
                 NSMutableArray *motionArr=[[NSMutableArray alloc] init];
+                NSInteger index=0;
                 for (NSDictionary * emotiondDic in emotions) {
+                    
+                    if (index==20) {
+                        index=0;
+                        Emoticon*emotion=[[Emoticon alloc] init];
+                        emotion.isRemove=YES;
+                         [motionArr addObject:emotion];
+                    }
+                    
                     Emoticon *emotion=[Emoticon initwithDic:emotiondDic];
                     emotion.groupid=group.groupID;
-                    emotion.imagePath=[[emoticonBundlePath stringByAppendingPathComponent:group.groupID] stringByAppendingString:emotion.chs];
-                    [motionArr addObject:emotion];
+                    emotion.imagePath=[[emoticonBundlePath stringByAppendingPathComponent:group.groupID] stringByAppendingPathComponent:emotion.png];
+                   [motionArr addObject:emotion];
+                    index++;
                 }
                 group.emoticons=motionArr;
                 [self.emojiDictionary  addObject:group];
@@ -218,7 +249,7 @@ static CGFloat emotionH =50;
 -(UIPageControl *)PageControl{
     if (!_PageControl) {
         _PageControl=[[UIPageControl alloc] init];
-        _PageControl.hidesForSinglePage=YES;
+        //_PageControl.hidesForSinglePage=YES;
         _PageControl.currentPageIndicatorTintColor=[UIColor orangeColor];
         _PageControl.pageIndicatorTintColor=[UIColor grayColor];
     }
@@ -241,7 +272,7 @@ static CGFloat emotionH =50;
     rect.origin.y=0;
     rect.size.width=self.vTopBg.frame.size.width;
     rect.size.height=self.vTopBg.frame.size.height;
-    self.collView.frame=rect;
+    //self.collView.frame=rect;
     
     rect=self.vDownBg.frame;
     rect.origin.x=0;
@@ -300,6 +331,13 @@ static CGFloat emotionH =50;
     r.size.height = self.vDownBg.frame.size.height;
     self.btnflower.frame = r;
     [self addSubview:self.collView];
+    
+    r=self.collView.frame;
+    self.PageControl.frame=CGRectMake(0, self.collView.frame.size.height+5, SCREEN_WIDTH, 20);
+    self.PageControl.currentPage=1;
+    self.PageControl.numberOfPages=9;
+    [self addSubview:self.PageControl];
+    
 }
 
 

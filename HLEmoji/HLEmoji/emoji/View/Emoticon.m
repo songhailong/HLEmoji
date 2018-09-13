@@ -17,6 +17,12 @@
     [emoticon setValuesForKeysWithDictionary:dic];
     return emoticon;
 }
+-(void)setIsRemove:(BOOL)isRemove{
+    _isRemove=isRemove;
+    if (_isRemove) {
+        _type=EmoticonTypeRemove;
+    }
+}
 -(void)setCode:(NSString *)code{
     _code=code;
 //  NSScanner *scanner=  [NSScanner scannerWithString:code];
@@ -51,6 +57,27 @@
     }else if ([groupID containsString:@"lxh"]){
         _nameCN=@"浪小花";
         _groupType=EmoticonTypeImage;
+    }
+}
+-(void)setEmoticons:(NSMutableArray<Emoticon *> *)emoticons{
+    _emoticons=emoticons;
+    //追加空白
+    int count=emoticons.count%21;
+    _numberOfPage=emoticons.count/21;
+    if (count>0) {
+        _numberOfPage=_numberOfPage+1;
+    
+    NSLog(@"个数%d",count);
+    for (int i=count;i<20;i++) {
+        NSLog(@"i=%d",i);
+        Emoticon *emo=[[Emoticon  alloc] init];
+        emo.isRemove=NO;
+        [_emoticons addObject:emo];
+        //NSLog(@"抓奸");
+    }
+    Emoticon *emor=[[Emoticon  alloc] init];
+    emor.isRemove=YES;
+    [_emoticons addObject:emor];
     }
 }
 @end

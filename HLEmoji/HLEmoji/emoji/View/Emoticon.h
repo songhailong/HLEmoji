@@ -10,6 +10,7 @@
 typedef NS_ENUM(NSInteger,EmoticonType) {
     EmoticonTypeImage = 0, ///< 图片表情
     EmoticonTypeEmoji = 1, ///< Emoji表情
+    EmoticonTypeRemove=2,//删除按钮
 };
 @interface Emoticon : NSObject
 @property(nonatomic,strong)NSString *chs;//
@@ -18,6 +19,7 @@ typedef NS_ENUM(NSInteger,EmoticonType) {
 @property (nonatomic, strong) NSString *png;
 @property (nonatomic, strong) NSString *code;///< 例如 0x1f60d
 @property (nonatomic, assign) EmoticonType type;
+@property(nonatomic,assign)BOOL isRemove;
 @property(nonatomic,strong)NSString *groupid;
 @property(nonatomic,strong)NSString *imagePath;
 @property(nonatomic,strong)NSString *emotionStr;
@@ -35,5 +37,6 @@ typedef NS_ENUM(NSInteger,EmoticonType) {
 @property (nonatomic, strong) NSString *nameTW;
 @property (nonatomic, strong )NSNumber *displayOnly;
 @property (nonatomic, assign) NSInteger groupType;
-@property (nonatomic, strong) NSArray<Emoticon *> *emoticons;
+@property(nonnull,assign)NSInteger numberOfPage;
+@property (nonatomic, strong) NSMutableArray<Emoticon *> *emoticons;
 @end
