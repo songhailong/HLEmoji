@@ -37,6 +37,6 @@ typedef NS_ENUM(NSInteger,EmoticonType) {
 @property (nonatomic, strong) NSString *nameTW;
 @property (nonatomic, strong )NSNumber *displayOnly;
 @property (nonatomic, assign) NSInteger groupType;
-@property(nonnull,assign)NSInteger numberOfPage;
+@property(nonatomic,assign)NSInteger numberOfPage;
 @property (nonatomic, strong) NSMutableArray<Emoticon *> *emoticons;
 @end

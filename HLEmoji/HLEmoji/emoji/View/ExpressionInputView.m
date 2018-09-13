@@ -18,7 +18,7 @@ static CGFloat emotionH =50;
 @property (nonatomic, strong) UIView *vTopBg;
 @property(nonatomic,strong)UICollectionView *collView;
 @property(nonatomic,strong)UIPageControl * PageControl;
-@property (nonatomic, strong) NSMutableArray *emojiDictionary;
+@property (nonatomic, strong) NSMutableArray <EmoticonGroup *>*emojiDictionary;
 @property (nonatomic, strong) UIView *vDownBg;
 @property (nonatomic, strong) UIButton *btnSend;
 @property (nonatomic, strong) UIButton *btnDefault;
@@ -107,13 +107,22 @@ EmoticonGroup *mog=[_emojiDictionary objectAtIndex:indexPath.section];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSInteger page=(scrollView.contentOffset.x/scrollView.frame.size.width);
-    //NSLog(@"%zd页数",page);
+    NSInteger page=round(scrollView.contentOffset.x/scrollView.frame.size.width);
+    
+    NSLog(@"%zd页数------%f---",page,scrollView.contentOffset.x,scrollView.contentOffset.y);
+    
+    NSIndexPath *indexpath=[_collView indexPathForItemAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
+   NSInteger  cuntpage= indexpath.row/21;
+    EmoticonGroup *group=_emojiDictionary[indexpath.section];
+    self.PageControl.numberOfPages=group.numberOfPage;
+    self.PageControl.currentPage=cuntpage;
     //if (page<0)page=0 ;
     //else if (page>=)
     
 }
-
+-(void)movetoToolBarnWith{
+    
+}
 #pragma mark*******按钮
 -(void)sendAction{
     
@@ -246,6 +255,14 @@ EmoticonGroup *mog=[_emojiDictionary objectAtIndex:indexPath.section];
     }
     return _emojiDictionary;
 }
+-(NSInteger)emoticonGroupTotalPageCount{
+    if (!_emoticonGroupTotalPageCount) {
+        for (EmoticonGroup *goup in self.emojiDictionary) {
+            _emoticonGroupTotalPageCount=_emoticonGroupTotalPageCount+goup.numberOfPage;
+        }
+    }
+    return _emoticonGroupTotalPageCount;
+}
 -(UIPageControl *)PageControl{
     if (!_PageControl) {
         _PageControl=[[UIPageControl alloc] init];
@@ -334,8 +351,8 @@ EmoticonGroup *mog=[_emojiDictionary objectAtIndex:indexPath.section];
     
     r=self.collView.frame;
     self.PageControl.frame=CGRectMake(0, self.collView.frame.size.height+5, SCREEN_WIDTH, 20);
-    self.PageControl.currentPage=1;
-    self.PageControl.numberOfPages=9;
+    self.PageControl.currentPage=0;
+    self.PageControl.numberOfPages=self.emojiDictionary[0].numberOfPage;
     [self addSubview:self.PageControl];
     
 }
