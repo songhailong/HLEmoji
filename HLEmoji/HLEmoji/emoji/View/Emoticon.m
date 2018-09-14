@@ -66,11 +66,9 @@
     _numberOfPage=emoticons.count/21;
     if (count>0) {
         _numberOfPage=_numberOfPage+1;
-    
-    NSLog(@"个数%d",count);
+  
     for (int i=count;i<20;i++) {
-        NSLog(@"i=%d",i);
-        Emoticon *emo=[[Emoticon  alloc] init];
+     Emoticon *emo=[[Emoticon  alloc] init];
         emo.isRemove=NO;
         [_emoticons addObject:emo];
         //NSLog(@"抓奸");

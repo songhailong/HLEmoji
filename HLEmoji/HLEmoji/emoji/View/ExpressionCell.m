@@ -14,12 +14,12 @@
     self = [super initWithFrame:frame];
     if (self) {
        // NSLog(@"cell创建");
-        self.backgroundColor=[UIColor greenColor];
+        //self.backgroundColor=[UIColor greenColor];
         _ivImg = [[UIButton alloc]init];
         _ivImg.frame=CGRectMake(10, 10, 32, 32);
         _ivImg.center=CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
         _ivImg.userInteractionEnabled=NO;
-        _ivImg.backgroundColor=[UIColor redColor];
+        //_ivImg.backgroundColor=[UIColor redColor];
         _ivImg.contentMode=UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:_ivImg];
         

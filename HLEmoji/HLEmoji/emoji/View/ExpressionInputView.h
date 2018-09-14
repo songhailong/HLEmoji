@@ -8,17 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #define RATIO_WIDHT320 [UIScreen mainScreen].bounds.size.width/320.0
+@class Emoticon;
 @protocol ExpressionViewDelegate <NSObject>
 
 /**
  用哪个表情
  */
--(void)selectWithExpression:(NSString *)expression;
+@optional
+-(void)selectWithExpression:(Emoticon *)emoticon;
 
 /**
  发送按钮调用
  */
+@optional
 -(void)sendExpressionAction;
+@optional
+-(void)removeExpressionWithEmoticon:(Emoticon *)emoticon;
 @end;
 @interface ExpressionInputView : UIView
 @property(nonatomic,weak)id<ExpressionViewDelegate>delegate;

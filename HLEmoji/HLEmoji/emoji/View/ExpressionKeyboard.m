@@ -10,10 +10,12 @@
 #import "ExpressionInputView.h"
 #import "ExpressionAddView.h"
 #import "RecordTool.h"
+#import "Emoticon.h"
+#import "UITextView+Expression.h"
 #define SCREEN_HEIGHT    [UIScreen mainScreen].bounds.size.height //屏高
 static  NSString * const ChatKeyboardResign=@"ChatKeyboardResign";
 static float const FaceKeyboardHeight=224.0;
-@interface ExpressionKeyboard()<UITextViewDelegate>{
+@interface ExpressionKeyboard()<UITextViewDelegate,ExpressionViewDelegate>{
     UITextView *inputText;
     BOOL showFace;
     BOOL isKeyboard;
@@ -57,6 +59,7 @@ static float const FaceKeyboardHeight=224.0;
         inputText.layer.borderWidth=1;
         inputText.returnKeyType=UIReturnKeySend;
         inputText.layer.cornerRadius=6;
+        inputText.font=[UIFont systemFontOfSize:17];
         inputText.delegate=self;
         [self addSubview:inputText];
         self.btnRecord=[UIButton new];
@@ -187,7 +190,7 @@ static float const FaceKeyboardHeight=224.0;
         [inputText resignFirstResponder];
         self.AddKeyboard.hidden=NO;
         [UIView animateWithDuration:5 animations:^{
-            self.AddKeyboard.frame=CGRectMake(0, 50,self.frame.size.width, self->keyboardHeight);
+            //self.AddKeyboard.frame=CGRectMake(0, 50,self.frame.size.width, self->keyboardHeight);
             //self.AddKeyboard.transform=CGAffineTransformMakeTranslation(0, 50);
         }];
          [self customKeyboardMove:SCREEN_HEIGHT-self.frame.size.height];
@@ -247,8 +250,6 @@ static float const FaceKeyboardHeight=224.0;
 
 //结束录音
 -(void)recordUpAction{
-    NSLog(@"这里执行");
-    
     [self.recordTool stopRecord:^(NSData *audioData, NSInteger seconds) {
         NSLog(@"录制时长时长%zd",seconds);
     }];
@@ -298,10 +299,21 @@ static float const FaceKeyboardHeight=224.0;
 -(void)hideFaceAnimation{
     
 }
+#pragma mark******代理方法
+-(void)selectWithExpression:(Emoticon *)emoticon{
+    [inputText insertWithEmoticon:emoticon];
+}
+-(void)sendExpressionAction{
+    
+}
+-(void)removeExpressionWithEmoticon:(Emoticon *)emoticon{
+    
+}
 #pragma mark*******懒加载
 -(ExpressionInputView *)faceKeyboard{
     if (!_faceKeyboard) {
         _faceKeyboard=[[ExpressionInputView alloc] init];
+        _faceKeyboard.delegate=self;
         _faceKeyboard.hidden=YES;
     }
     return _faceKeyboard;
