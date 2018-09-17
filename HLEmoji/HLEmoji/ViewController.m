@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    NSLog(@"创建");
     [self.view addSubview:self.inputView];
     self.inputView.delegate=self;
 }

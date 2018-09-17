@@ -7,14 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-typedef NS_ENUM(NSInteger,handleKeyType) {
-    handleKeyTypePhoto,
-    handleKeyTypeCamera,
-    handleKeyTypeVideo,
-    handleKeyTypeIphne,
-    handleKeyTypAderess,
-    handleKeyTypeFile,
-};
+#import "ExpreessionHeader.h"
 typedef void(^handleComple)(handleKeyType type);
 @interface ExpressionAddView : UIView
 @property(nonatomic,assign)handleKeyType keyType;

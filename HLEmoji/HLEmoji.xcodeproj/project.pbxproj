@@ -1180,6 +1180,17 @@
 		82500F552148F7C3008D6A06 /* compose_emotion_delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82500F532148F7C3008D6A06 /* compose_emotion_delete@3x.png */; };
 		82657009214B8365006E9225 /* UITextView+Expression.m in Sources */ = {isa = PBXBuildFile; fileRef = 82657008214B8365006E9225 /* UITextView+Expression.m */; };
 		8265700C214BB419006E9225 /* EmotiocnTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8265700B214BB419006E9225 /* EmotiocnTextAttachment.m */; };
+		8271674C214F925D00D1D77E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82716732214F925D00D1D77E /* Info.plist */; };
+		8271674D214F925D00D1D77E /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 82716734214F925D00D1D77E /* MASCompositeConstraint.m */; };
+		8271674E214F925D00D1D77E /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 82716737214F925D00D1D77E /* MASConstraint.m */; };
+		8271674F214F925D00D1D77E /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 82716739214F925D00D1D77E /* MASConstraintMaker.m */; };
+		82716750214F925D00D1D77E /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 8271673B214F925D00D1D77E /* MASLayoutConstraint.m */; };
+		82716751214F925D00D1D77E /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 8271673F214F925D00D1D77E /* MASViewAttribute.m */; };
+		82716752214F925D00D1D77E /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 82716741214F925D00D1D77E /* MASViewConstraint.m */; };
+		82716753214F925D00D1D77E /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 82716743214F925D00D1D77E /* NSArray+MASAdditions.m */; };
+		82716754214F925D00D1D77E /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 82716746214F925D00D1D77E /* NSLayoutConstraint+MASDebugAdditions.m */; };
+		82716755214F925D00D1D77E /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 82716748214F925D00D1D77E /* View+MASAdditions.m */; };
+		82716756214F925D00D1D77E /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8271674B214F925D00D1D77E /* ViewController+MASAdditions.m */; };
 		8276CBC62141211800B38702 /* NSMutableArray+Emoticon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8276CBC52141211800B38702 /* NSMutableArray+Emoticon.m */; };
 		829FBC022137D348002EC725 /* chatBar_colorMore_audioCallSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFB2137D347002EC725 /* chatBar_colorMore_audioCallSelected@2x.png */; };
 		829FBC032137D348002EC725 /* 通话@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFC2137D347002EC725 /* 通话@2x.png */; };
@@ -1629,6 +1640,33 @@
 		82657008214B8365006E9225 /* UITextView+Expression.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Expression.m"; sourceTree = "<group>"; };
 		8265700A214BB419006E9225 /* EmotiocnTextAttachment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmotiocnTextAttachment.h; sourceTree = "<group>"; };
 		8265700B214BB419006E9225 /* EmotiocnTextAttachment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmotiocnTextAttachment.m; sourceTree = "<group>"; };
+		82716732214F925D00D1D77E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82716733214F925D00D1D77E /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
+		82716734214F925D00D1D77E /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
+		82716735214F925D00D1D77E /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
+		82716736214F925D00D1D77E /* MASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraint.h; sourceTree = "<group>"; };
+		82716737214F925D00D1D77E /* MASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraint.m; sourceTree = "<group>"; };
+		82716738214F925D00D1D77E /* MASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraintMaker.h; sourceTree = "<group>"; };
+		82716739214F925D00D1D77E /* MASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraintMaker.m; sourceTree = "<group>"; };
+		8271673A214F925D00D1D77E /* MASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASLayoutConstraint.h; sourceTree = "<group>"; };
+		8271673B214F925D00D1D77E /* MASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASLayoutConstraint.m; sourceTree = "<group>"; };
+		8271673C214F925D00D1D77E /* Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Masonry.h; sourceTree = "<group>"; };
+		8271673D214F925D00D1D77E /* MASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASUtilities.h; sourceTree = "<group>"; };
+		8271673E214F925D00D1D77E /* MASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewAttribute.h; sourceTree = "<group>"; };
+		8271673F214F925D00D1D77E /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
+		82716740214F925D00D1D77E /* MASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewConstraint.h; sourceTree = "<group>"; };
+		82716741214F925D00D1D77E /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
+		82716742214F925D00D1D77E /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASAdditions.h"; sourceTree = "<group>"; };
+		82716743214F925D00D1D77E /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MASAdditions.m"; sourceTree = "<group>"; };
+		82716744214F925D00D1D77E /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		82716745214F925D00D1D77E /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
+		82716746214F925D00D1D77E /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
+		82716747214F925D00D1D77E /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASAdditions.h"; sourceTree = "<group>"; };
+		82716748214F925D00D1D77E /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+MASAdditions.m"; sourceTree = "<group>"; };
+		82716749214F925D00D1D77E /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		8271674A214F925D00D1D77E /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
+		8271674B214F925D00D1D77E /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		82716757214F9DCD00D1D77E /* ExpreessionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpreessionHeader.h; sourceTree = "<group>"; };
 		8276CBC42141211800B38702 /* NSMutableArray+Emoticon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Emoticon.h"; sourceTree = "<group>"; };
 		8276CBC52141211800B38702 /* NSMutableArray+Emoticon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Emoticon.m"; sourceTree = "<group>"; };
 		829FBBFB2137D347002EC725 /* chatBar_colorMore_audioCallSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_colorMore_audioCallSelected@2x.png"; sourceTree = "<group>"; };
@@ -3187,6 +3225,39 @@
 			path = "验证消息icon.imageset";
 			sourceTree = "<group>";
 		};
+		82716731214F925D00D1D77E /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				82716732214F925D00D1D77E /* Info.plist */,
+				82716733214F925D00D1D77E /* MASCompositeConstraint.h */,
+				82716734214F925D00D1D77E /* MASCompositeConstraint.m */,
+				82716735214F925D00D1D77E /* MASConstraint+Private.h */,
+				82716736214F925D00D1D77E /* MASConstraint.h */,
+				82716737214F925D00D1D77E /* MASConstraint.m */,
+				82716738214F925D00D1D77E /* MASConstraintMaker.h */,
+				82716739214F925D00D1D77E /* MASConstraintMaker.m */,
+				8271673A214F925D00D1D77E /* MASLayoutConstraint.h */,
+				8271673B214F925D00D1D77E /* MASLayoutConstraint.m */,
+				8271673C214F925D00D1D77E /* Masonry.h */,
+				8271673D214F925D00D1D77E /* MASUtilities.h */,
+				8271673E214F925D00D1D77E /* MASViewAttribute.h */,
+				8271673F214F925D00D1D77E /* MASViewAttribute.m */,
+				82716740214F925D00D1D77E /* MASViewConstraint.h */,
+				82716741214F925D00D1D77E /* MASViewConstraint.m */,
+				82716742214F925D00D1D77E /* NSArray+MASAdditions.h */,
+				82716743214F925D00D1D77E /* NSArray+MASAdditions.m */,
+				82716744214F925D00D1D77E /* NSArray+MASShorthandAdditions.h */,
+				82716745214F925D00D1D77E /* NSLayoutConstraint+MASDebugAdditions.h */,
+				82716746214F925D00D1D77E /* NSLayoutConstraint+MASDebugAdditions.m */,
+				82716747214F925D00D1D77E /* View+MASAdditions.h */,
+				82716748214F925D00D1D77E /* View+MASAdditions.m */,
+				82716749214F925D00D1D77E /* View+MASShorthandAdditions.h */,
+				8271674A214F925D00D1D77E /* ViewController+MASAdditions.h */,
+				8271674B214F925D00D1D77E /* ViewController+MASAdditions.m */,
+			);
+			path = Masonry;
+			sourceTree = "<group>";
+		};
 		82DDEAD22134E9C5004342E4 = {
 			isa = PBXGroup;
 			children = (
@@ -3210,6 +3281,7 @@
 		82DDEADD2134E9C5004342E4 /* HLEmoji */ = {
 			isa = PBXGroup;
 			children = (
+				82716731214F925D00D1D77E /* Masonry */,
 				822EE6692149E5AD004A3BAC /* Chat */,
 				82DDEB102134EAEC004342E4 /* emoji */,
 				82DDEADE2134E9C5004342E4 /* AppDelegate.h */,
@@ -3299,6 +3371,7 @@
 				829FBC0A2137DA1C002EC725 /* AddViewHandleCell.m */,
 				82096F302142251C0062029E /* RecordTool.h */,
 				82096F312142251C0062029E /* RecordTool.m */,
+				82716757214F9DCD00D1D77E /* ExpreessionHeader.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3751,6 +3824,7 @@
 				822EE9E02149E5AF004A3BAC /* Contents.json in Resources */,
 				822EEA9A2149E5AF004A3BAC /* [猪头]@3x.png in Resources */,
 				829FBC022137D348002EC725 /* chatBar_colorMore_audioCallSelected@2x.png in Resources */,
+				8271674C214F925D00D1D77E /* Info.plist in Resources */,
 				822EECD12149E5B0004A3BAC /* 表情@3x.png in Resources */,
 				822EE9712149E5AE004A3BAC /* [奸笑]@3x.png in Resources */,
 				822EE97A2149E5AE004A3BAC /* [委屈]@3x.png in Resources */,
@@ -4610,20 +4684,30 @@
 			files = (
 				82DDEB1D213518BD004342E4 /* ExpressionKeyboard.m in Sources */,
 				8276CBC62141211800B38702 /* NSMutableArray+Emoticon.m in Sources */,
+				82716754214F925D00D1D77E /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				82096F3B214228770062029E /* Mp3Recorder.m in Sources */,
 				82DDEAE32134E9C6004342E4 /* ViewController.m in Sources */,
 				829FBC0B2137DA1C002EC725 /* AddViewHandleCell.m in Sources */,
 				822EED03214A06DA004A3BAC /* HLEmoticonCollectionView.m in Sources */,
+				82716755214F925D00D1D77E /* View+MASAdditions.m in Sources */,
 				82C303772147499D00284ADE /* UIImageView+GIF.m in Sources */,
+				82716750214F925D00D1D77E /* MASLayoutConstraint.m in Sources */,
 				82DDEB232135192C004342E4 /* ExpressionAddView.m in Sources */,
+				82716752214F925D00D1D77E /* MASViewConstraint.m in Sources */,
 				82DDEB26213519C9004342E4 /* ExpressionCell.m in Sources */,
+				82716756214F925D00D1D77E /* ViewController+MASAdditions.m in Sources */,
+				8271674D214F925D00D1D77E /* MASCompositeConstraint.m in Sources */,
 				82DDEAEE2134E9CB004342E4 /* main.m in Sources */,
 				8265700C214BB419006E9225 /* EmotiocnTextAttachment.m in Sources */,
 				82DDEB20213518F9004342E4 /* ExpressionInputView.m in Sources */,
+				82716751214F925D00D1D77E /* MASViewAttribute.m in Sources */,
 				82657009214B8365006E9225 /* UITextView+Expression.m in Sources */,
 				82096F322142251C0062029E /* RecordTool.m in Sources */,
+				82716753214F925D00D1D77E /* NSArray+MASAdditions.m in Sources */,
 				82DDEAE02134E9C6004342E4 /* AppDelegate.m in Sources */,
 				82DDEB1621350D0B004342E4 /* UIImage+Category.m in Sources */,
+				8271674E214F925D00D1D77E /* MASConstraint.m in Sources */,
+				8271674F214F925D00D1D77E /* MASConstraintMaker.m in Sources */,
 				82DDEB2B21353FF0004342E4 /* Emoticon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

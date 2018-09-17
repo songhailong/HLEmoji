@@ -13,14 +13,20 @@
 #import "Emoticon.h"
 #import "UITextView+Expression.h"
 #define SCREEN_HEIGHT    [UIScreen mainScreen].bounds.size.height //屏高
+#define SCREEN_WIDTH     [UIScreen mainScreen].bounds.size.width
 static  NSString * const ChatKeyboardResign=@"ChatKeyboardResign";
 static float const FaceKeyboardHeight=224.0;
+static CGFloat const keyToolBarH=50;
+static CGFloat const kTextVTopMargin=10;
+//static CGFloat const keyboardH=224;
 @interface ExpressionKeyboard()<UITextViewDelegate,ExpressionViewDelegate>{
     UITextView *inputText;
     BOOL showFace;
     BOOL isKeyboard;
     NSArray* faceData;
     CGFloat   keyboardHeight;
+    CGFloat _height_oneRowText;//输入框每一行文字高度
+    CGFloat _height_Toolbar;   //当前Toolbar高度
 }
 @property(nonatomic,strong)UIButton *faceimage;
 @property(nonatomic,strong)UIButton *addImg;
@@ -30,19 +36,23 @@ static float const FaceKeyboardHeight=224.0;
 @property(nonatomic,strong)ExpressionAddView *AddKeyboard;
 //录音工具
 @property(nonatomic,strong)RecordTool *recordTool;
+@property(nonatomic,strong)UIView *toolInput;
 @end
 @implementation ExpressionKeyboard
 
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
+        //self.toolInput.frame=CGRectMake(0, 0, frame.size.width, keyboardHeight);
+       // [self addSubview:self.toolInput];
         [self setBackgroundColor:[UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1]];
         UIView *line=[UIView new];
         [line setBackgroundColor:[UIColor colorWithRed:218/255.0 green:220/255.0 blue:220/255.0 alpha:1]];
         line.frame=CGRectMake(0, 0, frame.size.width, 1);
         [self addSubview:line];
+        //[UIScreen mainScreen].bounds.size.width
+        CGFloat height=keyToolBarH;
         
-        CGFloat height=50;
         CGFloat width=frame.size.width;
          self.recordImage=[UIButton new];
          self.recordImage.frame=CGRectMake(5, (height-30)/2.0, 30, 30);
@@ -53,13 +63,14 @@ static float const FaceKeyboardHeight=224.0;
         [self addSubview:self.recordImage];
         //输入框
         inputText=[[UITextView alloc] init];
-        inputText.frame=CGRectMake(self.recordImage.frame.size.width+5+5, (height-30)/2,width-(self.recordImage.frame.size.width+5+5)-75, 30);
+        inputText.frame=CGRectMake(self.recordImage.frame.size.width+5+5, kTextVTopMargin,width-(self.recordImage.frame.size.width+5+5)-75, keyToolBarH-kTextVTopMargin*2);
         //inputText.layer.borderColor=RGB(218, 220, 220).CGColor;
         inputText.layer.borderColor=[UIColor colorWithRed:218/255.0 green:220/255.0 blue:220/255.0 alpha:1].CGColor;
         inputText.layer.borderWidth=1;
         inputText.returnKeyType=UIReturnKeySend;
         inputText.layer.cornerRadius=6;
         inputText.font=[UIFont systemFontOfSize:17];
+        _height_oneRowText=[inputText.layoutManager usedRectForTextContainer:inputText.textContainer ].size.height;
         inputText.delegate=self;
         [self addSubview:inputText];
         self.btnRecord=[UIButton new];
@@ -90,8 +101,6 @@ static float const FaceKeyboardHeight=224.0;
         [_faceimage setBackgroundImage:[UIImage imageNamed:@"表情"] forState:UIControlStateNormal];
          [_faceimage setBackgroundImage:[UIImage imageNamed:@"键盘"] forState:UIControlStateSelected];
         _faceimage.userInteractionEnabled=YES;
-//        UITapGestureRecognizer *faceTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showFaceAction)];
-//        [_faceimage addGestureRecognizer:faceTap];
         [_faceimage addTarget:self action:@selector(showFaceAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_faceimage];
         //加号按钮
@@ -99,8 +108,6 @@ static float const FaceKeyboardHeight=224.0;
         [_addImg setBackgroundImage:[UIImage imageNamed:@"加号"] forState:UIControlStateNormal];
         _addImg.frame = CGRectMake(_faceimage.frame.size.height+_faceimage.frame.origin.x+5, (height-30)/2, 30, 30);
         _addImg.userInteractionEnabled = TRUE;
-//        UITapGestureRecognizer *addImgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectImgAction)];
-//        [_addImg addGestureRecognizer:addImgTap];
         [_addImg addTarget:self action:@selector(selectImgAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_addImg];
         //键盘弹出通知
@@ -113,7 +120,13 @@ static float const FaceKeyboardHeight=224.0;
 }
 -(void)initUI{
     [self  addSubview:self.AddKeyboard];
-    [self addSubview:self.faceKeyboard];
+    [self  addSubview:self.faceKeyboard];
+    __weak typeof(self)weakSelf=self;
+    [self.AddKeyboard handledidSelectAction:^(handleKeyType type) {
+    if (weakSelf.delegate!=nil&&[weakSelf.delegate respondsToSelector:@selector(sendMediaDidWithKeyType:)]) {
+        [weakSelf.delegate sendMediaDidWithKeyType:type];
+        }
+    }];
 }
 -(void)initBtnRecord{
     self.btnRecord=[UIButton new];
@@ -171,11 +184,73 @@ static float const FaceKeyboardHeight=224.0;
     [UIView animateWithDuration:0.25 animations:^{
         //self.frame = Frame(0,customKbY, SCREEN_WITDTH, Height(self.frame));
         self.frame=CGRectMake(0, customKbY, self.frame.size.width, self.frame.size.height);
+        NSLog(@"高度%f",self.frame.size.height);
     }];
 }
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if ([text isEqualToString:@"\n"]) {
+        //[self. endEditing:YES];
+        
+        [self.delegate sendMessage:text];
+        
+        return NO;//这里返回NO，就代表return键值失效，即页面上按下return，不会出现换行，如果为yes，则输入页面会换行
+    }
     return YES;
 }
+#pragma mark******代理方法
+-(void)selectWithExpression:(Emoticon *)emoticon{
+    [inputText insertWithEmoticon:emoticon];
+}
+-(void)sendExpressionAction{
+    NSString *text=[inputText emoticonAttributedText];
+    if (_delegate!=nil&&[_delegate respondsToSelector:@selector(sendMessage:)]) {
+        [_delegate sendMessage:text];
+    }
+}
+-(void)removeExpressionWithEmoticon:(Emoticon *)emoticon{
+    NSLog(@"删除");
+    //删除
+    [inputText deleteBackward];
+}
+-(void)textViewDidChange:(UITextView *)textView{
+    NSLog(@"改变");
+    [self p_textViewChangeText];
+}
+/**输入框高度变化*/
+-(void)p_textViewChangeText{
+    
+    //获取文字高度
+    CGFloat textH=[inputText.layoutManager usedRectForTextContainer:inputText.textContainer].size.height;
+    int numberOfRowsShow;
+    if (!_maxNumberOfRowsToShow) {
+        numberOfRowsShow = 4;
+    }
+    else{
+        numberOfRowsShow = _maxNumberOfRowsToShow;
+    }
+    CGFloat rows_h=_height_oneRowText*numberOfRowsShow;
+    textH=textH>rows_h?rows_h:textH+8;
+    NSLog(@"行高哈根衣估计%f",textH);
+    //输入框的高度
+    CGFloat h_input=keyToolBarH-kTextVTopMargin*2;
+    keyboardHeight=FaceKeyboardHeight;
+    if (textH<h_input) {
+    CGFloat with=    self.frame.size.width;
+        inputText.frame=CGRectMake(self.recordImage.frame.size.width+5+5, kTextVTopMargin,with-(self.recordImage.frame.size.width+5+5)-75, keyToolBarH-kTextVTopMargin*2);
+         self.frame=CGRectMake(0, SCREEN_HEIGHT-keyboardHeight-keyToolBarH, with, keyboardHeight+keyToolBarH);
+        self.faceKeyboard.frame=CGRectMake(0, keyToolBarH, with, keyboardHeight);
+    }else{
+        CGFloat toolBarH=textH+2*kTextVTopMargin;
+         CGFloat with=    self.frame.size.width;
+       self.frame=CGRectMake(0, SCREEN_HEIGHT-keyboardHeight-toolBarH, with, toolBarH+keyboardHeight);
+        inputText.frame=CGRectMake(self.recordImage.frame.size.width+5+5, kTextVTopMargin, with-(self.recordImage.frame.size.width+5+5)-75, textH);
+        self.faceKeyboard.frame=CGRectMake(0, toolBarH, with, keyboardHeight);
+    }
+    //光标位置
+    [inputText scrollRangeToVisible:NSMakeRange(inputText.text.length, 1)];
+    
+}
+
 //加号按钮
 -(void)selectImgAction:(UIButton *)btn{
     btn.selected=!btn.selected;
@@ -183,7 +258,7 @@ static float const FaceKeyboardHeight=224.0;
     self.recordImage.selected=NO;
     self.faceimage.selected=NO;
     self.faceKeyboard.hidden=YES;
-      keyboardHeight=224;
+      keyboardHeight=FaceKeyboardHeight;
     if (btn.selected) {
         inputText.hidden=NO;
         self.btnRecord.hidden=YES;
@@ -201,12 +276,13 @@ static float const FaceKeyboardHeight=224.0;
 }
 //显示表情键盘
 -(void)showFaceAction:(UIButton *)btn{
+    NSLog(@"执行");
     btn.selected=!btn.selected;
     //重置其他按钮select
     self.recordImage.selected=NO;
     self.addImg.selected=NO;
     self.AddKeyboard.hidden=YES;
-    keyboardHeight=224;
+    keyboardHeight=FaceKeyboardHeight;
     if (btn.selected) {
         inputText.hidden=NO;
         self.btnRecord.hidden=YES;
@@ -251,7 +327,10 @@ static float const FaceKeyboardHeight=224.0;
 //结束录音
 -(void)recordUpAction{
     [self.recordTool stopRecord:^(NSData *audioData, NSInteger seconds) {
-        NSLog(@"录制时长时长%zd",seconds);
+        __weak typeof(self)weakself=self;
+        if(weakself.delegate!=nil&&[weakself.delegate respondsToSelector:@selector(sendVoiceDidWithData:)]){
+            [weakself.delegate sendVoiceDidWithData:audioData timeLenght:seconds];
+        }
     }];
     self.recordTool=nil;
 }
@@ -299,16 +378,7 @@ static float const FaceKeyboardHeight=224.0;
 -(void)hideFaceAnimation{
     
 }
-#pragma mark******代理方法
--(void)selectWithExpression:(Emoticon *)emoticon{
-    [inputText insertWithEmoticon:emoticon];
-}
--(void)sendExpressionAction{
-    
-}
--(void)removeExpressionWithEmoticon:(Emoticon *)emoticon{
-    
-}
+
 #pragma mark*******懒加载
 -(ExpressionInputView *)faceKeyboard{
     if (!_faceKeyboard) {
@@ -317,6 +387,14 @@ static float const FaceKeyboardHeight=224.0;
         _faceKeyboard.hidden=YES;
     }
     return _faceKeyboard;
+}
+-(UIView *)toolInput{
+    if (!_toolInput) {
+        _toolInput=[[UIView alloc] init];
+        _toolInput.userInteractionEnabled=NO;
+        [_toolInput setBackgroundColor:[UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1]];
+    }
+    return _toolInput;
 }
 -(ExpressionAddView *)AddKeyboard{
     if (!_AddKeyboard) {
@@ -334,7 +412,7 @@ static float const FaceKeyboardHeight=224.0;
 }
 -(void)layoutSubviews{
     [super layoutSubviews];
-       self.faceKeyboard.frame=CGRectMake(0,50, self.frame.size.width, FaceKeyboardHeight);
+       self.faceKeyboard.frame=CGRectMake(0,self.frame.size.height-FaceKeyboardHeight, self.frame.size.width, FaceKeyboardHeight);
     self.AddKeyboard.frame=CGRectMake(0, 50, self.frame.size.width, FaceKeyboardHeight);
 }
 @end

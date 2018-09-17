@@ -36,6 +36,8 @@
         //恢复光标位置  重新赋值后光标会放在
         
         self.selectedRange=NSMakeRange(range.location+1, 0);
+    
+        [self.delegate textViewDidChange:self];
         
     }
 }
