@@ -1175,8 +1175,11 @@
 		822EECFE2149E5B0004A3BAC /* 验证消息icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 822EE8742149E5AE004A3BAC /* 验证消息icon@3x.png */; };
 		822EECFF2149E5B0004A3BAC /* 验证消息icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 822EE8742149E5AE004A3BAC /* 验证消息icon@3x.png */; };
 		822EED002149E5B0004A3BAC /* 验证消息icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 822EE8742149E5AE004A3BAC /* 验证消息icon@3x.png */; };
+		822EED03214A06DA004A3BAC /* HLEmoticonCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 822EED02214A06DA004A3BAC /* HLEmoticonCollectionView.m */; };
 		82500F542148F7C3008D6A06 /* compose_emotion_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82500F522148F7C2008D6A06 /* compose_emotion_delete@2x.png */; };
 		82500F552148F7C3008D6A06 /* compose_emotion_delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82500F532148F7C3008D6A06 /* compose_emotion_delete@3x.png */; };
+		82657009214B8365006E9225 /* UITextView+Expression.m in Sources */ = {isa = PBXBuildFile; fileRef = 82657008214B8365006E9225 /* UITextView+Expression.m */; };
+		8265700C214BB419006E9225 /* EmotiocnTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8265700B214BB419006E9225 /* EmotiocnTextAttachment.m */; };
 		8276CBC62141211800B38702 /* NSMutableArray+Emoticon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8276CBC52141211800B38702 /* NSMutableArray+Emoticon.m */; };
 		829FBC022137D348002EC725 /* chatBar_colorMore_audioCallSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFB2137D347002EC725 /* chatBar_colorMore_audioCallSelected@2x.png */; };
 		829FBC032137D348002EC725 /* 通话@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 829FBBFC2137D347002EC725 /* 通话@2x.png */; };
@@ -1618,8 +1621,14 @@
 		822EE8722149E5AE004A3BAC /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		822EE8732149E5AE004A3BAC /* 验证消息icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "验证消息icon@2x.png"; sourceTree = "<group>"; };
 		822EE8742149E5AE004A3BAC /* 验证消息icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "验证消息icon@3x.png"; sourceTree = "<group>"; };
+		822EED01214A06DA004A3BAC /* HLEmoticonCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLEmoticonCollectionView.h; sourceTree = "<group>"; };
+		822EED02214A06DA004A3BAC /* HLEmoticonCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLEmoticonCollectionView.m; sourceTree = "<group>"; };
 		82500F522148F7C2008D6A06 /* compose_emotion_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose_emotion_delete@2x.png"; sourceTree = "<group>"; };
 		82500F532148F7C3008D6A06 /* compose_emotion_delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose_emotion_delete@3x.png"; sourceTree = "<group>"; };
+		82657007214B8365006E9225 /* UITextView+Expression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextView+Expression.h"; sourceTree = "<group>"; };
+		82657008214B8365006E9225 /* UITextView+Expression.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Expression.m"; sourceTree = "<group>"; };
+		8265700A214BB419006E9225 /* EmotiocnTextAttachment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmotiocnTextAttachment.h; sourceTree = "<group>"; };
+		8265700B214BB419006E9225 /* EmotiocnTextAttachment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmotiocnTextAttachment.m; sourceTree = "<group>"; };
 		8276CBC42141211800B38702 /* NSMutableArray+Emoticon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Emoticon.h"; sourceTree = "<group>"; };
 		8276CBC52141211800B38702 /* NSMutableArray+Emoticon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Emoticon.m"; sourceTree = "<group>"; };
 		829FBBFB2137D347002EC725 /* chatBar_colorMore_audioCallSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_colorMore_audioCallSelected@2x.png"; sourceTree = "<group>"; };
@@ -3262,6 +3271,8 @@
 				8276CBC52141211800B38702 /* NSMutableArray+Emoticon.m */,
 				82C303752147499D00284ADE /* UIImageView+GIF.h */,
 				82C303762147499D00284ADE /* UIImageView+GIF.m */,
+				82657007214B8365006E9225 /* UITextView+Expression.h */,
+				82657008214B8365006E9225 /* UITextView+Expression.m */,
 			);
 			path = categary;
 			sourceTree = "<group>";
@@ -3276,10 +3287,14 @@
 				82DDEB1F213518F9004342E4 /* ExpressionInputView.m */,
 				82DDEB212135192C004342E4 /* ExpressionAddView.h */,
 				82DDEB222135192C004342E4 /* ExpressionAddView.m */,
+				822EED01214A06DA004A3BAC /* HLEmoticonCollectionView.h */,
+				822EED02214A06DA004A3BAC /* HLEmoticonCollectionView.m */,
 				82DDEB24213519C9004342E4 /* ExpressionCell.h */,
 				82DDEB25213519C9004342E4 /* ExpressionCell.m */,
 				82DDEB2921353FF0004342E4 /* Emoticon.h */,
 				82DDEB2A21353FF0004342E4 /* Emoticon.m */,
+				8265700A214BB419006E9225 /* EmotiocnTextAttachment.h */,
+				8265700B214BB419006E9225 /* EmotiocnTextAttachment.m */,
 				829FBC092137DA1C002EC725 /* AddViewHandleCell.h */,
 				829FBC0A2137DA1C002EC725 /* AddViewHandleCell.m */,
 				82096F302142251C0062029E /* RecordTool.h */,
@@ -4598,11 +4613,14 @@
 				82096F3B214228770062029E /* Mp3Recorder.m in Sources */,
 				82DDEAE32134E9C6004342E4 /* ViewController.m in Sources */,
 				829FBC0B2137DA1C002EC725 /* AddViewHandleCell.m in Sources */,
+				822EED03214A06DA004A3BAC /* HLEmoticonCollectionView.m in Sources */,
 				82C303772147499D00284ADE /* UIImageView+GIF.m in Sources */,
 				82DDEB232135192C004342E4 /* ExpressionAddView.m in Sources */,
 				82DDEB26213519C9004342E4 /* ExpressionCell.m in Sources */,
 				82DDEAEE2134E9CB004342E4 /* main.m in Sources */,
+				8265700C214BB419006E9225 /* EmotiocnTextAttachment.m in Sources */,
 				82DDEB20213518F9004342E4 /* ExpressionInputView.m in Sources */,
+				82657009214B8365006E9225 /* UITextView+Expression.m in Sources */,
 				82096F322142251C0062029E /* RecordTool.m in Sources */,
 				82DDEAE02134E9C6004342E4 /* AppDelegate.m in Sources */,
 				82DDEB1621350D0B004342E4 /* UIImage+Category.m in Sources */,
