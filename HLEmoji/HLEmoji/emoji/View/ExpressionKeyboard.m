@@ -12,6 +12,7 @@
 #import "RecordTool.h"
 #import "Emoticon.h"
 #import "UITextView+Expression.h"
+
 #define SCREEN_HEIGHT    [UIScreen mainScreen].bounds.size.height //屏高
 #define SCREEN_WIDTH     [UIScreen mainScreen].bounds.size.width
 static  NSString * const ChatKeyboardResign=@"ChatKeyboardResign";
@@ -326,13 +327,19 @@ static CGFloat const kTextVTopMargin=10;
 
 //结束录音
 -(void)recordUpAction{
+    
+    if (self.recordTool==nil) return;
+    
     [self.recordTool stopRecord:^(NSData *audioData, NSInteger seconds) {
         __weak typeof(self)weakself=self;
-        if(weakself.delegate!=nil&&[weakself.delegate respondsToSelector:@selector(sendVoiceDidWithData:)]){
-            [weakself.delegate sendVoiceDidWithData:audioData timeLenght:seconds];
-        }
+//        if(weakself.delegate!=nil&&[weakself.delegate respondsToSelector:@selector(sendVoiceDidWithData:)]){
+//            //[weakself.delegate sendVoiceDidWithData:audioData timeLenght:seconds];
+//        }
+        NSLog(@"松手");
+        
+        weakself.recordTool=nil;
     }];
-    self.recordTool=nil;
+    //self.recordTool=nil;
 }
 
 /**
@@ -350,6 +357,13 @@ static CGFloat const kTextVTopMargin=10;
     
 }
 -(void)completeRecord{
+    
+    //[self.recordTool stopRecord:^(NSData *audioData, NSInteger seconds) {
+       // __weak typeof(self)weakself=self;
+        //        if(weakself.delegate!=nil&&[weakself.delegate respondsToSelector:@selector(sendVoiceDidWithData:)]){
+        //            //[weakself.delegate sendVoiceDidWithData:audioData timeLenght:seconds];
+        //        }
+    //}];
     [self.btnRecord sendActionsForControlEvents:UIControlEventTouchUpInside];
     [self initBtnRecord];
    // [self recordUpAction];
@@ -357,12 +371,13 @@ static CGFloat const kTextVTopMargin=10;
 #pragma mark*******手指离开录音按钮，但不松开
 -(void)audioLpButtonMoveOut:(UIButton *)audioLpButton{
     [self.recordTool moveOut];
+    self.recordTool=nil;
 }
 #pragma mark*******手指离开录音按钮 松开
 -(void)audioLpButtonMoveOutTouchUp:(UIButton *)audioLpButton{
     [self.recordTool cancelRecord];
     //释放蒙版
-    self.recordTool=nil;
+    //self.recordTool=nil;
 }
 #pragma mark*******手指回到录音按钮，但不松开
 -(void)audioLpButtonMoveInside:(UIButton *)audioLpButton{

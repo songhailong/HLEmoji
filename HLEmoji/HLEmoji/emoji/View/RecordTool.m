@@ -72,7 +72,13 @@
     return _cutdownLabel;
 }
 +(instancetype)shareRecordTool{
-    return [[self alloc] init];
+    static RecordTool *shareRecordTool;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        shareRecordTool=[[RecordTool alloc] init];
+    });
+    
+    return shareRecordTool;
 }
 #pragma mark******方法实现
 -(void)beiganRecord{
@@ -80,15 +86,17 @@
     [self.recorder startRecord];
     UIWindow *keyWindow=[UIApplication sharedApplication].keyWindow;
     [keyWindow addSubview:self.recordCoverView];
+    self.recordCoverView.hidden=NO;
     // 展示录音动画  0代表无限次数
     [self.animationView GIF_PrePlayWithImageNamesArray:@[@"正发送语音1",@"正发送语音2",@"正发送语音3"] duration:0];
+    _recordSeconds =0;
     //开启定时器
     dispatch_source_set_event_handler(self.recordTimer, ^{
         
         _recordSeconds ++ ;
         //处理倒计时UI
         NSLog(@"=============%zd",_recordSeconds);
-        if (_recordSeconds>50) {
+        if (_recordSeconds>5) {
             //[self.recorder stopRecord];
             //[self clearRecord];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"completeRecord" object:nil];
@@ -96,6 +104,7 @@
         
     });
     dispatch_resume(self.recordTimer);
+    
 }
 -(void)completeRecord:(audioInfoCallback)infoCallbalck{
     //_infoCallblock=infoCallbalck;
@@ -125,6 +134,10 @@
 
 //录音结束的代理
 -(void)endConvertWithData:(NSData *)voiceData seconds:(NSTimeInterval)time{
+     [self.animationView GIF_Stop];
+    //UIWindow *keyWindow=[UIApplication sharedApplication].keyWindow;
+    //[keyWindow addSubview:self.recordCoverView];
+    //[self.animationView removeFromSuperview];
     if(_infoCallblock){
         _infoCallblock(voiceData,(NSInteger)time);
         
@@ -137,12 +150,15 @@
     } completion:^(BOOL finished) {
         //移除
         [self.recordCoverView removeFromSuperview];
+        self.recordCoverView=nil;
         //关闭定时器
-        dispatch_source_cancel(self.recordTimer);
+        //dispatch_source_cancel(self.recordTimer);
+        // dispatch_suspend 不会释放
+        dispatch_suspend(self.recordTimer);
     }];
 }
 - (void)dealloc
-{
+{    NSLog(@"dealloc");
     dispatch_source_cancel(_recordTimer);
 }
 
